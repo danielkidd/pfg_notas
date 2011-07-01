@@ -1,0 +1,14 @@
+#rails specific
+*.sqlite3
+log/*
+tmp/*
+
+## generic files to ignore
+*~
+*.lock
+*.DS_Store
+*.swp
+*.out
+
+#netbeans ignore personal stuff
+nbproject/private/
