@@ -1,0 +1,29 @@
+<% @teacher.password = @teacher.password_confirmation = nil %>
+
+<% form_for(@teacher) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :login, 'Usuario' %><br />
+    <%= f.text_field :login, :autocomplete=>'off' %>
+  </p>
+  <p>
+    <%= f.label :email %><br />
+    <%= f.text_field :email, :autocomplete=>'off' %>
+  </p>
+  <p>
+    <%= f.label :name, 'Nombre' %><br />
+    <%= f.text_field :name, :autocomplete=>'off' %>
+  </p>
+  <p>
+    <%= f.label :password, 'Contraseña' %><br />
+    <%= f.password_field :password, :autocomplete=>'off' %>
+  </p>
+  <p>
+    <%= f.label :password_confirmation, 'Confirmar Contraseña' %><br/>
+    <%= f.password_field :password_confirmation, :autocomplete=>'off' %>
+  </p>
+  <p>
+    <%= f.submit 'Guardar' %>
+  </p>
+<% end %>

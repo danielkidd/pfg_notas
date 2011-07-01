@@ -1,0 +1,25 @@
+<h1>Listado de Asignaturas</h1>
+
+<table>
+  <tr>
+    <th>Nombre</th>
+    <th>Profesores</th>
+  </tr>
+
+<% @signatures.each do |signature| %>
+  <tr class="<%= cycle('impar', 'par') %>">
+    <td><%=h signature.name %></td>
+    <td><%=h signature.teacher_names.to_sentence %></td>
+    <td><%= link_to 'Mostrar', signature %></td>
+    <% if current_user.is_a? Administrator %>
+      <td><%= link_to 'Modificar', edit_signature_path(signature) %></td>
+      <td><%= link_to 'Eliminar', signature, :confirm => '¿Estás seguro?', :method => :delete %></td>
+    <% end %>
+  </tr>
+<% end %>
+</table>
+
+<br />
+<% if current_user.is_a? Administrator %>
+<%= link_to 'Nueva asignatura', new_signature_path if current_user.is_a? Administrator %>
+<%end%>

@@ -1,0 +1,6 @@
+<h1>Editando Curso <%= Year.current.to_s %></h1>
+
+<%= render :partial => 'form' %>
+
+<%= link_to 'Mostrar', @year %> |
+<%= link_to 'Volver al listado', years_path %>

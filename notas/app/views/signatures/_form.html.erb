@@ -1,0 +1,13 @@
+
+<% form_for(@signature) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :name, 'Nombre' %><br />
+    <%= f.text_field :name, :autocomplete=>'off' %>
+  </p>
+  
+  <p>
+    <%= f.submit 'Guardar' %>
+  </p>
+<% end %>

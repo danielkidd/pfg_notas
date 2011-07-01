@@ -1,0 +1,32 @@
+<h1>Listado de Alumnos</h1>
+
+<table>
+  <tr>
+    <th>Login</th>
+    <th>Email</th>
+    <th>Nombre</th>
+    <th>Expediente</th>
+  </tr>
+
+<% @students.each do |student| %>
+  <tr class="<%= cycle('impar', 'par') %>">
+    <td><%=h student.login %></td>
+    <td><%=h student.email %></td>
+    <td><%=h student.name %></td>
+    <td><%=h student.expedient %></td>
+
+
+    <td><%= link_to 'Mostrar', student %></td>
+
+    <% if current_user.is_a? Administrator %>
+    <td><%= link_to 'Modificar', edit_student_path(student) %></td>
+    <td><%= link_to 'Eliminar', student, :confirm => '¿Estás seguro?', :method => :delete %></td>
+    <%end%>
+  </tr>
+<% end %>
+</table>
+
+<br />
+<% if current_user.is_a? Administrator %>
+<%= link_to 'Nuevo Alumno', new_student_path %>
+<%end%>

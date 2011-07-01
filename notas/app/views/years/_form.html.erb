@@ -1,0 +1,13 @@
+<% form_for(@year) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :start_year %><br />
+    <%= f.text_field :start_year %>
+  </p>
+  <p>
+    <%= f.submit 'Guardar' %>
+  </p>
+<% end %>
+
+<%= link_to 'Volver al listado', years_path %>

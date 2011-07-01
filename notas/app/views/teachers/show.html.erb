@@ -1,0 +1,26 @@
+<h1>Datos del Profesor</h1>
+
+<p>
+  <b>Usuario:</b>
+  <%=h @teacher.login %>
+</p>
+
+<p>
+  <b>Email:</b>
+  <%=h @teacher.email %>
+</p>
+
+<p>
+  <b>Nombre:</b>
+  <%=h @teacher.name %>
+</p>
+
+<h2>Asignaturas del Profesor</h2>
+<% @teacher.signatures.each do |signature| %>
+  <p><%= signature.name %></p>
+<% end %>
+
+  <% if current_user.is_a? Administrator %>
+<%= link_to 'Editar', edit_teacher_path(@teacher) %> |
+<%end%>
+<%= link_to 'Volver al listado', teachers_path %>

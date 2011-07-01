@@ -1,0 +1,84 @@
+<h1>Datos de la Asignatura</h1>
+
+<p>
+  <b>Nombre:</b>
+  <%=h @signature.name %>
+</p>
+
+<% if current_user.is_a? Administrator %>
+  <%= link_to 'Modificar', edit_signature_path(@signature) %>
+<% elsif current_user.is_a? Teacher %>
+  <%= link_to 'Pruebas', signature_tests_path(@signature) %> |
+<%end%>
+
+<%= link_to 'Volver al listado', signatures_path %>
+
+  <br />
+<br />
+<br />
+<% if current_user.is_a? Administrator %>
+<h2>Profesores que imparten esta asignatura:</h2>
+<table>
+  <tr>
+    <th>Nombre</th>
+    <th>E-mail</th>
+  </tr>
+
+<% @signature.signatures_teachers.each do |signatures_teacher| %>
+  <% unless signatures_teacher.new_record? %>
+    <tr>
+      <td><%=h signatures_teacher.teacher.name %></td>
+      <td><%=h signatures_teacher.teacher.email %></td>
+    </tr>
+  <% end %>
+<% end %>
+</table>
+
+<% @signatures_teacher = @signature.signatures_teachers.build unless @signatures_teacher.present? %>
+<% form_for(@signatures_teacher, :url=>{:action=>'create_teacher', :id=>@signature}) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :teacher_id, 'Profesor' %><br />
+    <%= f.collection_select :teacher_id, new_teachers, :id, :name, :prompt => 'Seleccionar profesor' %>
+    <%= f.hidden_field :year_id, :value=>Year.current.id %>
+    <%= f.submit 'Guardar' %>
+  </p>
+<%end%>
+  <%end%>
+
+<br />
+<br />
+<br />
+<% if current_user.is_a? Administrator %>
+<h2>Alumnos matriculados en la asignatura:</h2>
+<table>
+  <tr>
+    <th>Nombre</th>
+    <th>Expediente</th>
+    <th>Calificación</th>
+  </tr>
+
+<% @signature.signatures_students.each do |signatures_student| %>
+  <% unless signatures_student.new_record? %>
+    <tr>
+      <td><%=h signatures_student.student.name %></td>
+      <td><%=h signatures_student.student.expedient %></td>
+      <td><%=h signatures_student.calification %></td>
+    </tr>
+  <% end %>
+<% end %>
+</table>
+
+<% @signatures_student = @signature.signatures_students.build unless @signatures_student.present? %>
+<% form_for(@signatures_student, :url=>{:action=>'create_student', :id=>@signature}) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :student_id, 'Alumno' %><br />
+    <%= f.collection_select :student_id, new_students, :id, :name, :prompt => 'Seleccionar alumno' %>
+    <%= f.hidden_field :year_id, :value=>Year.current.id %>
+    <%= f.submit 'Guardar' %>
+  </p>
+<%end%>
+<% end %>

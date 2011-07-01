@@ -1,0 +1,9 @@
+<h1>Mostrar curso </h1>
+<p>
+  <b>Curso:</b>
+  <%=h @year.start_year %>
+</p>
+
+
+<%= link_to 'Modificar', edit_year_path(@year) %> |
+<%= link_to 'Volver al listado', years_path %>

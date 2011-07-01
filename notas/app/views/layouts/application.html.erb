@@ -1,0 +1,24 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+       "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+  <title><%= @title || "Gestor de notas para el curso #{@year_selected.to_s}" %></title>
+  <%= stylesheet_link_tag 'scaffold', 'application' %>
+</head>
+<body>
+  <div class="pagina">
+    <h1 class="cabecera">Gestor de notas para el curso <%= @year_selected.to_s %></h1>
+
+    <%= render 'users/user_bar' %>
+
+    <p class="flash notice"><%= flash[:notice] %></p>
+    <p class="flash error"><%= flash[:error] %></p>
+
+    <%= yield %>
+
+    <h3 class="pie">texto pie página</h3>
+  </div>
+</body>
+</html>
