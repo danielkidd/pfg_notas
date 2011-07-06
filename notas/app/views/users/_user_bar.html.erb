@@ -1,14 +1,21 @@
 <% if logged_in? -%>
-  <ul id="menu">
-    <li id="nav-1"><%= link_to 'Asignaturas', signatures_path %></li>
-    <li id="nav-2"><%= link_to 'Profesores', teachers_path %></li>
-    <li id="nav-3"><%= link_to 'Estudiantes', students_path %></li>
-  </ul>
+<div class="p">
   <% form_tag(change_year_path, :method => :get) do -%>
     <%= select_tag 'id', options_for_select(
       Year.all.collect { |y| [y.to_s, y.id] }, @year_selected.id),
       :onchange=>'this.form.submit();' -%>
   <% end -%>
+  </div>
+<div class="derecha">
+
   <div id="user-bar-greeting">Bienvenido <%= current_user.name %></div>
   <div id="user-bar-action"  >(<%= link_to "Cerrar sesión", logout_path, { :title => "cerrar sesión" }    %>)</div>
+
+</div>
+  <ul id="menu">
+    <li id="nav-1"><%= link_to 'Asignaturas', signatures_path %></li>
+    <li id="nav-2"><%= link_to 'Profesores', teachers_path %></li>
+    <li id="nav-3"><%= link_to 'Estudiantes', students_path %></li>
+  </ul>
+
 <% end -%>

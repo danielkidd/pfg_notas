@@ -11,12 +11,43 @@ div.pagina {
     width: 1320px;
     padding: 10px;
     background-color: #fff;
+   
     color: #333;
-    height: 750px;
+    padding-bottom: 80px;
     padding-left: 80px;
+   position: relative;
+   
+}
+div.derecha
+{
+
+    right: 120px;
+    position: absolute;
+ 
+
+}
+div.contacto
+{
+   right: 120px;
+   position: absolute;
+   bottom: -60px;
 }
 
-div.pagina, p, ol, ul, td {
+div.p
+{
+    position: absolute;
+    right: 410px;
+}
+#user-bar-greeting
+{
+    padding-bottom: 5px;
+}
+#user-bar-action
+{
+    padding-bottom: 5px;
+}
+
+div.pagina, p, ol, ul, td,.contacto {
     text-align: justify;
     font-family: verdana, arial, helvetica, sans-serif;
     font-size:   13px;
@@ -75,8 +106,10 @@ h1.cabecera {
     padding-bottom: 50px;
 }
 
-h3.pie {
-    padding-top: 50px;
+h4.pie {
+   padding: 50px 350px;
+    float:none;
+    position: relative;
 }
 
 .flash {

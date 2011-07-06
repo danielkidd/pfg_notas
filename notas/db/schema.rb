@@ -9,12 +9,23 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110620100640) do
+ActiveRecord::Schema.define(:version => 20110620161636) do
 
   create_table "signatures", :force => true do |t|
     t.string   "name",       :limit => 100
     t.datetime "created_at"
     t.datetime "updated_at"
+  end
+
+  create_table "signatures_students", :force => true do |t|
+    t.integer "signature_id"
+    t.integer "student_id"
+    t.integer "year_id"
+    t.decimal "average1",      :precision => 4, :scale => 2
+    t.integer "calification1"
+    t.decimal "average2",      :precision => 4, :scale => 2
+    t.integer "calification2"
+    t.boolean "ordinary"
   end
 
   create_table "signatures_teachers", :id => false, :force => true do |t|

@@ -8,6 +8,7 @@ class CreateSignaturesStudents < ActiveRecord::Migration
       t.integer :calification1
       t.decimal :average2, :precision => 4, :scale => 2
       t.integer :calification2
+      t.boolean :ordinary
     end
 
     add_index :signatures_students, [:signature_id, :student_id, :year_id], :unique=>true
