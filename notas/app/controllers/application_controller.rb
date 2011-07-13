@@ -53,6 +53,7 @@ protected
   end
 
   def find_year
-    @year_selected = session[:year_selected] || Year.current
+    @current_year = Year.current
+    @year_selected = session[:year_selected] || @current_year
   end
 end

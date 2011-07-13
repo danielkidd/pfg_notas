@@ -11,13 +11,13 @@
     <div class="pagina">
       <h1 class="cabecera">
         <a href="http://localhost:3000">
-          <img alt="logo" src="images/logo-universidad-pontificia-salamanca-bis.gif"/>
+          <img alt="logo" title="logo UPSA" src="/images/logo-universidad-pontificia-salamanca-bis.gif"/>
         </a>
       Gestor de notas para el curso <%= @year_selected.to_s %>
       </h1>
 
     <%= render 'users/user_bar' %>
-
+    
     <p class="flash notice"><%= flash[:notice] %></p>
     <p class="flash error"><%= flash[:error] %></p>
 

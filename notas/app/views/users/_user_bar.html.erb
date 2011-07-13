@@ -4,12 +4,13 @@
     <%= select_tag 'id', options_for_select(
       Year.all.collect { |y| [y.to_s, y.id] }, @year_selected.id),
       :onchange=>'this.form.submit();' -%>
+    <%= hidden_field_tag 'url', request.request_uri %>
   <% end -%>
   </div>
 <div class="derecha">
 
-  <div id="user-bar-greeting">Bienvenido <%= current_user.name %></div>
-  <div id="user-bar-action"  >(<%= link_to "Cerrar sesión", logout_path, { :title => "cerrar sesión" }    %>)</div>
+  <div id="user-bar-greeting">Bienvenido <em><%= current_user.name %></em></div>
+  <div id="user-bar-action"  >(<%= link_to "Cerrar sesión", logout_path, { :title => "cerrar sesión" } %>)</div>
 
 </div>
   <ul id="menu">

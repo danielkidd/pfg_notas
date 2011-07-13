@@ -1,7 +1,7 @@
 body {
     color: #fff;
     text-align: center;
-    background-color: gainsboro;
+    background-color: white;
 }
 
 div.pagina {
@@ -13,15 +13,15 @@ div.pagina {
     background-color: #fff;
    
     color: #333;
-    padding-bottom: 80px;
+    padding-bottom: 200px;
     padding-left: 80px;
    position: relative;
    
 }
 div.derecha
 {
-
-    right: 120px;
+    top: 0px;
+    right: 0px;
     position: absolute;
  
 
@@ -36,15 +36,18 @@ div.contacto
 div.p
 {
     position: absolute;
-    right: 410px;
+    right: 0px;
 }
 #user-bar-greeting
 {
+    font-size: medium;
     padding-bottom: 5px;
 }
 #user-bar-action
 {
+    right: 0px;
     padding-bottom: 5px;
+    position: absolute;
 }
 
 div.pagina, p, ol, ul, td,.contacto {

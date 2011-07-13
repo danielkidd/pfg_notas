@@ -1,6 +1,7 @@
 class TeachersController < ApplicationController
   # GET /teachers
   # GET /teachers.xml
+  before_filter :require_administrator, :except=>[:index, :show]
   def index
     @teachers = Teacher.all
 
@@ -73,7 +74,7 @@ class TeachersController < ApplicationController
   # DELETE /teachers/1.xml
   def destroy
     @teacher = Teacher.find(params[:id])
-    @teacher.destroy
+    @teacher.destroy  rescue flash[:notice] = 'No se puede borrar el profesor'
 
     respond_to do |format|
       format.html { redirect_to(teachers_url) }

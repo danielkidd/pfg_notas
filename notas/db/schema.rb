@@ -28,7 +28,7 @@ ActiveRecord::Schema.define(:version => 20110620161636) do
     t.boolean "ordinary"
   end
 
-  create_table "signatures_teachers", :id => false, :force => true do |t|
+  create_table "signatures_teachers", :force => true do |t|
     t.integer "signature_id"
     t.integer "teacher_id"
     t.integer "year_id"

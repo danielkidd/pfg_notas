@@ -9,7 +9,7 @@
 <% @signatures.each do |signature| %>
   <tr class="<%= cycle('impar', 'par') %>">
     <td><%=h signature.name %></td>
-    <td><%=h signature.teacher_names.to_sentence %></td>
+    <td><%=h signature.teacher_names(@year_selected.id).to_sentence %></td>
     <td><%= link_to 'Mostrar', signature %></td>
     <% if current_user.is_a? Administrator %>
       <td><%= link_to 'Modificar', edit_signature_path(signature) %></td>

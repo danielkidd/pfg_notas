@@ -1,7 +1,12 @@
 ActionController::Routing::Routes.draw do |map|
   map.resources :years
 
-  map.resources :signatures, :member => { :create_student => :post }
+  map.resources :signatures, :member => {
+      :create_student => :post,
+      :destroy_student => :delete,
+      :create_teacher => :post,
+      :destroy_teacher => :delete
+    }
 
   map.resources :teachers
 

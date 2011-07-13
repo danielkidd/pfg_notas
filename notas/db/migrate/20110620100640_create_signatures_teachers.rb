@@ -1,6 +1,6 @@
 class CreateSignaturesTeachers < ActiveRecord::Migration
   def self.up
-    create_table :signatures_teachers, :id => false do |t|
+    create_table :signatures_teachers do |t|
       t.integer :signature_id
       t.integer :teacher_id
       t.integer :year_id

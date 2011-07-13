@@ -74,7 +74,7 @@ class YearsController < ApplicationController
   # DELETE /years/1.xml
   def destroy
     @year = Year.find(params[:id])
-    @year.destroy
+    @year.destroy  rescue flash[:notice] = 'No se puede borrar el año'
 
     respond_to do |format|
       format.html { redirect_to(years_url) }

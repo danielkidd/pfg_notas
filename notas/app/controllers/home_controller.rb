@@ -15,7 +15,10 @@ class HomeController < ApplicationController
 
   def change_year
     @year_selected = session[:year_selected] = Year.find(params[:id])
-    index
+
+    respond_to do |format|
+      format.html { redirect_to(params[:url]) }
+    end
   end
 
 end

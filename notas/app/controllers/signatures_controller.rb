@@ -5,10 +5,8 @@ class SignaturesController < ApplicationController
   def index
     if current_user.is_a? Administrator
       @signatures = Signature.all
-    elsif current_user.is_a? Teacher
-      @signatures = current_user.signatures(:conditions=>['year_id = ?', Year.current.id])
-    elsif current_user.is_a? Student
-      @signatures = current_user.signatures(:conditions=>['year_id = ?', Year.current.id])
+    else
+      @signatures = current_user.signatures.find(:all, :conditions=>['year_id = ?', @year_selected])
     end
 
     respond_to do |format|
@@ -20,8 +18,12 @@ class SignaturesController < ApplicationController
   # GET /signatures/1
   # GET /signatures/1.xml
   def show
-    @signature = Signature.find(params[:id])
-
+    if current_user.is_a? Administrator
+      @signature = Signature.find(params[:id])
+    else
+      @signature = current_user.signatures.find(params[:id], :conditions=>['year_id = ?', @year_selected])
+    end
+    
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @signature }
@@ -63,7 +65,6 @@ class SignaturesController < ApplicationController
   # PUT /signatures/1
   # PUT /signatures/1.xml
   def update
-    params[:signature][:teacher_ids] ||= []
     @signature = Signature.find(params[:id])
 
     respond_to do |format|
@@ -81,7 +82,7 @@ class SignaturesController < ApplicationController
   # DELETE /signatures/1.xml
   def destroy
     @signature = Signature.find(params[:id])
-    @signature.destroy
+    @signature.destroy rescue flash[:notice] = 'No se puede borrar la asignatura'
 
     respond_to do |format|
       format.html { redirect_to(signatures_url) }
@@ -89,8 +90,8 @@ class SignaturesController < ApplicationController
     end
   end
 
-  # POST /create_student/1
-  # POST /create_student/1.xml
+  # POST /signatures/create_student/1
+  # POST /signatures/create_student/1.xml
   def create_student
     @signature = Signature.find(params[:id])
     @signatures_student = @signature.signatures_students.build(params[:signatures_student])
@@ -106,7 +107,9 @@ class SignaturesController < ApplicationController
     end
   end
 
-    def create_teacher
+  # POST /signatures/create_teacher/1
+  # POST /signatures/create_teacher/1.xml
+  def create_teacher
     @signature = Signature.find(params[:id])
     @signatures_teacher = @signature.signatures_teachers.build(params[:signatures_teacher])
 
@@ -121,4 +124,32 @@ class SignaturesController < ApplicationController
     end
   end
 
+  # DELETE /signatures/destroy_teacher/1
+  # DELETE /signatures/destroy_teacher/1.xml
+  def destroy_teacher
+    @signature = Signature.find(params[:id])
+    @signature_teacher = @signature.signatures_teachers.find(:first,
+      :conditions=>['year_id=? AND teacher_id=?', params[:year_id], params[:teacher_id]])
+    @signature_teacher.destroy #rescue flash[:notice] = 'No se puede borrar al profesor de esta asignatura'
+
+    respond_to do |format|
+      format.html { redirect_to(@signature) }
+      format.xml  { head :ok }
+    end
+  end
+
+  # DELETE /signatures/destroy_student/1
+  # DELETE /signatures/destroy_student/1.xml
+  def destroy_student
+    @signature = Signature.find(params[:id])
+    @signature_student = @signature.signatures_students.find(:first,
+      :conditions=>['year_id=? AND student_id=?', params[:year_id], params[:student_id]])
+    @signature_student.destroy rescue flash[:notice] = 'No se puede borrar al alumno de esta asignatura'
+
+    respond_to do |format|
+      format.html { redirect_to(@signature) }
+      format.xml  { head :ok }
+    end
+  end
+ 
 end

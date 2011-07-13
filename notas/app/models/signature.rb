@@ -3,15 +3,20 @@ class Signature < ActiveRecord::Base
   has_and_belongs_to_many :students, :order=>:name
   has_many :signatures_students
   has_many :signatures_teachers
-  has_many :tests
+  #has_many :tests
 
   validates_presence_of     :name
   validates_length_of       :name,     :maximum => 100
   validates_uniqueness_of   :name
 
+  before_destroy :comprueba_dependencias
+  def comprueba_dependencias
+    raise 'No se puede borrar esta asignatura' unless signatures_students.blank? && signatures_teachers.blank?
+  end
+
   # devuelve un array con los nombres de los profesores
-  def teacher_names
-    teachers.to_enum.collect { |teacher| teacher.name }
+  def teacher_names(year_id)
+    teachers.find(:all, :conditions=>['year_id=?',year_id]).to_enum.collect { |teacher| teacher.name }
   end
  
 end

@@ -6,79 +6,80 @@
 </p>
 
 <% if current_user.is_a? Administrator %>
-  <%= link_to 'Modificar', edit_signature_path(@signature) %>
-<% elsif current_user.is_a? Teacher %>
-  <%= link_to 'Pruebas', signature_tests_path(@signature) %> |
+  <%= link_to 'Modificar', edit_signature_path(@signature) %> |
 <%end%>
-
 <%= link_to 'Volver al listado', signatures_path %>
 
-  <br />
+<br />
 <br />
 <br />
 <% if current_user.is_a? Administrator %>
-<h2>Profesores que imparten esta asignatura:</h2>
-<table>
-  <tr>
-    <th>Nombre</th>
-    <th>E-mail</th>
-  </tr>
-
-<% @signature.signatures_teachers.each do |signatures_teacher| %>
-  <% unless signatures_teacher.new_record? %>
+  <h2>Profesores que imparten esta asignatura en el curso <%= @year_selected.to_s %>:</h2>
+  <table>
     <tr>
-      <td><%=h signatures_teacher.teacher.name %></td>
-      <td><%=h signatures_teacher.teacher.email %></td>
+      <th>Nombre</th>
+      <th>E-mail</th>
+      <th></th>
+    </tr>
+  <% @signature.teachers.find(:all, :conditions=>['year_id=?',@year_selected]).each do |teacher| %>
+    <tr class="<%= cycle('par','impar') %>">
+      <td><%=h teacher.name %></td>
+      <td><%=h teacher.email %></td>
+      <td><%= link_to 'Eliminar',
+              {:action=>'destroy_teacher', :id=>@signature,
+              :year_id=>@year_selected.id, :teacher_id=>teacher.id},
+              :confirm => '¿Estás seguro?', :method => :delete %></td>
     </tr>
   <% end %>
-<% end %>
-</table>
+  </table>
+  <h3 style="color: red"> CORREGIR!! Se tiene que permitir borrar al profesor aunque se haya añadido el alumno</h3>
+  <% @signatures_teacher ||= @signature.signatures_teachers.build %>
+  <% form_for(@signatures_teacher, :url=>{:action=>'create_teacher', :id=>@signature}) do |f| %>
+    <%= f.error_messages %>
 
-<% @signatures_teacher = @signature.signatures_teachers.build unless @signatures_teacher.present? %>
-<% form_for(@signatures_teacher, :url=>{:action=>'create_teacher', :id=>@signature}) do |f| %>
-  <%= f.error_messages %>
-
-  <p>
-    <%= f.label :teacher_id, 'Profesor' %><br />
-    <%= f.collection_select :teacher_id, new_teachers, :id, :name, :prompt => 'Seleccionar profesor' %>
-    <%= f.hidden_field :year_id, :value=>Year.current.id %>
-    <%= f.submit 'Guardar' %>
-  </p>
-<%end%>
+    <p>
+      <%= f.label :teacher_id, 'Profesor' %><br />
+      <%= f.collection_select :teacher_id, new_teachers, :id, :name, :prompt => 'Seleccionar profesor' %>
+      <%= f.hidden_field :year_id, :value=>@year_selected.id %>
+      <%= f.submit 'Guardar' %>
+    </p>
   <%end%>
 
-<br />
-<br />
-<br />
-<% if current_user.is_a? Administrator %>
-<h2>Alumnos matriculados en la asignatura:</h2>
-<table>
-  <tr>
-    <th>Nombre</th>
-    <th>Expediente</th>
-    <th>Calificación</th>
-  </tr>
+  <br />
+  <br />
+  <br />
 
-<% @signature.signatures_students.each do |signatures_student| %>
-  <% unless signatures_student.new_record? %>
+  <h2>Alumnos matriculados en la asignatura en el curso <%= @year_selected.to_s %>:</h2>
+  <table>
     <tr>
-      <td><%=h signatures_student.student.name %></td>
-      <td><%=h signatures_student.student.expedient %></td>
-      <td><%=h signatures_student.calification %></td>
+      <th>Nombre</th>
+      <th>Expediente</th>
+      <th></th>
     </tr>
+
+   <% @signature.signatures_students.find(:all, :conditions=>['year_id=?',@year_selected]).each do |signatures_student| %>
+      <tr class="<%= cycle('impar', 'par') %>">
+        <td><%=h signatures_student.student.name %></td>
+        <td><%=h signatures_student.student.expedient %></td>
+      <td><%= link_to 'Eliminar',
+              {:action=>'destroy_student', :id=>@signature,
+              :year_id=>@year_selected.id, :student_id=>signatures_student.student.id},
+              :confirm => '¿Estás seguro?', :method => :delete %></td>
+      </tr>
+    <% end %>
+  </table>
+
+  <% @signatures_student ||= @signature.signatures_students.build %>
+  <% form_for(@signatures_student, :url=>{:action=>'create_student', :id=>@signature}) do |f| %>
+    <%= f.error_messages %>
+
+    <p>
+      <%= f.label :student_id, 'Alumno' %><br />
+      <%= f.collection_select :student_id, new_students, :id, :name, :prompt => 'Seleccionar alumno' %>
+      <%= f.hidden_field :year_id, :value=>@year_selected.id %>
+      
+      <%= f.submit 'Guardar' %>
+    </p>
   <% end %>
-<% end %>
-</table>
 
-<% @signatures_student = @signature.signatures_students.build unless @signatures_student.present? %>
-<% form_for(@signatures_student, :url=>{:action=>'create_student', :id=>@signature}) do |f| %>
-  <%= f.error_messages %>
-
-  <p>
-    <%= f.label :student_id, 'Alumno' %><br />
-    <%= f.collection_select :student_id, new_students, :id, :name, :prompt => 'Seleccionar alumno' %>
-    <%= f.hidden_field :year_id, :value=>Year.current.id %>
-    <%= f.submit 'Guardar' %>
-  </p>
-<%end%>
 <% end %>
