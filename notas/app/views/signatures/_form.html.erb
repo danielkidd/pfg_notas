@@ -6,7 +6,13 @@
     <%= f.label :name, 'Nombre' %><br />
     <%= f.text_field :name, :autocomplete=>'off' %>
   </p>
-  
+
+  <p>
+    <%= f.label :degree_id, 'Titulación' %><br />
+    <%= f.hidden_field :degree_id if @signature.new_record? %>
+    <%= text_field_tag 'degree', @signature.degree.name, :disabled=>true, :size=>50 %>
+  </p>
+
   <p>
     <%= f.submit 'Guardar' %>
   </p>

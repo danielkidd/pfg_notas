@@ -1,6 +1,7 @@
 class StudentsController < ApplicationController
   # GET /students
   # GET /students.xml
+  before_filter :require_administrator_or_teacher, :only=>[:index, :show]
   before_filter :require_administrator, :except=>[:index, :show]
   def index
     @students = Student.all

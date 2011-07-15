@@ -1,12 +1,22 @@
 <% if logged_in? -%>
 <div class="p">
-  <% form_tag(change_year_path, :method => :get) do -%>
-    <%= select_tag 'id', options_for_select(
-      Year.all.collect { |y| [y.to_s, y.id] }, @year_selected.id),
-      :onchange=>'this.form.submit();' -%>
-    <%= hidden_field_tag 'url', request.request_uri %>
+  <% unless @ocultar_year_selected -%>
+    <% form_tag(change_year_path, :method => :get) do -%>
+      <%= select_tag 'id', options_for_select(
+        Year.all.collect { |y| [y.to_s, y.id] }, @year_selected.id),
+        :onchange=>'this.form.submit();' -%>
+      <%= hidden_field_tag 'url', request.request_uri %>
+    <% end -%>
   <% end -%>
-  </div>
+  <% unless @degree_selected.blank? || current_user.is_a?(Student) || @ocultar_degree_selected -%>
+    <% form_tag(change_degree_path, :method => :get) do -%>
+      <%= select_tag 'id', options_for_select(
+        Degree.all.collect { |d| [d.name, d.id] }, @degree_selected.id),
+        :onchange=>'this.form.submit();' -%>
+      <%= hidden_field_tag 'url', request.request_uri %>
+    <% end -%>
+  <% end -%>
+</div>
 <div class="derecha">
 
   <div id="user-bar-greeting">Bienvenido <em><%= current_user.name %></em></div>
@@ -16,7 +26,13 @@
   <ul id="menu">
     <li id="nav-1"><%= link_to 'Asignaturas', signatures_path %></li>
     <li id="nav-2"><%= link_to 'Profesores', teachers_path %></li>
-    <li id="nav-3"><%= link_to 'Estudiantes', students_path %></li>
+    <% unless current_user.is_a? Student -%>
+      <li id="nav-3"><%= link_to 'Estudiantes', students_path %></li>
+    <% end -%>
+    <% if current_user.is_a? Administrator -%>
+      <li id="nav-4"><%= link_to 'Cursos', years_path %></li>
+      <li id="nav-5"><%= link_to 'Titulaciones', degrees_path %></li>
+    <% end -%>
   </ul>
 
 <% end -%>

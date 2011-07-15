@@ -7,8 +7,7 @@
 
 <% @years.each do |year| %>
   <tr>
-    <td><%=h year.start_year %></td>
-    <td><%= link_to 'Mostrar', year %></td>
+    <td><%=h year.to_s %></td>
     <td><%= link_to 'Modificar', edit_year_path(year) %></td>
     <td><%= link_to 'Eliminar', year, :confirm => '¿Estás seguro?', :method => :delete %></td>
   </tr>

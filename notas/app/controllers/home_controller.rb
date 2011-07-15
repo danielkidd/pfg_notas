@@ -21,4 +21,12 @@ class HomeController < ApplicationController
     end
   end
 
+  def change_degree
+    @degree_selected = session[:degree_selected] = Degree.find(params[:id])
+
+    respond_to do |format|
+      format.html { redirect_to(params[:url]) }
+    end
+  end
+
 end

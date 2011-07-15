@@ -11,8 +11,15 @@
 
 ActiveRecord::Schema.define(:version => 20110620161636) do
 
+  create_table "degrees", :force => true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "signatures", :force => true do |t|
     t.string   "name",       :limit => 100
+    t.integer  "degree_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

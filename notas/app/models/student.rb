@@ -1,6 +1,4 @@
 class Student < User
-
-  has_and_belongs_to_many :signatures, :uniq=>true, :order=>:name
   has_many :signatures_students
 
   validates_presence_of     :expedient
@@ -9,12 +7,20 @@ class Student < User
 
   attr_accessible :expedient
 
-  def signatures_names
-    signatures.to_enum.collect { |signature| signature.name }
-  end
-
   def expedient=(value)
     write_attribute :expedient, (value ? value.downcase : nil)
+  end
+
+  def find_signatures(year_id)
+    Signature.find :all,
+      :conditions=>['year_id=? AND student_id=?',year_id, self.id],
+      :joins=>'INNER JOIN signatures_students ON signature_id=signatures.id'
+  end
+
+  def find_signature(signature_id, year_id)
+    Signature.find signature_id,
+      :conditions=>['year_id=? AND student_id=?',year_id, self.id],
+      :joins=>'INNER JOIN signatures_students ON signature_id=signatures.id'
   end
 
 end

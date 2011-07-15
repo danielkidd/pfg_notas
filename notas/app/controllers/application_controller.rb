@@ -14,6 +14,9 @@ class ApplicationController < ActionController::Base
   before_filter :require_logged
 
   before_filter :find_year
+  before_filter :find_degree
+  before_filter :ocultar_degree_selected
+  before_filter :ocultar_year_selected
 
   layout 'application'
 
@@ -52,8 +55,38 @@ protected
     end
   end
 
+  def require_administrator_or_teacher
+    if current_user.is_a? Administrator
+      @administrator = current_user
+    elsif current_user.is_a? Teacher
+      @teacher = current_user
+    else
+      flash[:error] = 'Acceso no permitido.'
+      redirect_to '/'
+    end
+  end
+
   def find_year
     @current_year = Year.current
     @year_selected = session[:year_selected] || @current_year
   end
+
+  def find_degree
+    unless current_user.is_a? Student
+      @degree_selected = session[:degree_selected] || Degree.find(:first)
+      unless @degree_selected.present?
+        flash[:notice] = 'Debe crear al menos una titulación'
+        redirect_to new_degree_path
+      end
+    end
+  end
+  
+  def ocultar_year_selected
+    @ocultar_year_selected = true
+  end
+  
+  def ocultar_degree_selected
+    @ocultar_degree_selected = true
+  end
+
 end

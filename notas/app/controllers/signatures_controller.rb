@@ -1,12 +1,16 @@
 class SignaturesController < ApplicationController
+  skip_before_filter :ocultar_degree_selected
+  skip_before_filter :ocultar_year_selected
   before_filter :require_administrator, :except=>[:index, :show]
   # GET /signatures
   # GET /signatures.xml
   def index
     if current_user.is_a? Administrator
-      @signatures = Signature.all
+      @signatures = @degree_selected.signatures
+    elsif current_user.is_a? Teacher
+      @signatures = current_user.find_signatures(@year_selected.id, @degree_selected.id)
     else
-      @signatures = current_user.signatures.find(:all, :conditions=>['year_id = ?', @year_selected])
+      @signatures = current_user.find_signatures(@year_selected.id)
     end
 
     respond_to do |format|
@@ -20,8 +24,10 @@ class SignaturesController < ApplicationController
   def show
     if current_user.is_a? Administrator
       @signature = Signature.find(params[:id])
+    elsif current_user.is_a? Teacher
+      @signature = current_user.find_signature(params[:id], @year_selected.id, @degree_selected.id)
     else
-      @signature = current_user.signatures.find(params[:id], :conditions=>['year_id = ?', @year_selected])
+      @signature = current_user.find_signature(params[:id], @year_selected.id)
     end
     
     respond_to do |format|
@@ -34,6 +40,7 @@ class SignaturesController < ApplicationController
   # GET /signatures/new.xml
   def new
     @signature = Signature.new
+    @signature.degree = @degree_selected
 
     respond_to do |format|
       format.html # new.html.erb

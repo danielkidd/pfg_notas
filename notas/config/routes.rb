@@ -1,4 +1,6 @@
 ActionController::Routing::Routes.draw do |map|
+  map.resources :degrees
+
   map.resources :years
 
   map.resources :signatures, :member => {
@@ -16,6 +18,7 @@ ActionController::Routing::Routes.draw do |map|
 
   map.home '', :controller => 'home', :action => 'index'
   map.change_year '/change_year', :controller => 'home', :action => 'change_year'
+  map.change_degree '/change_degree', :controller => 'home', :action => 'change_degree'
   
   map.logout '/logout', :controller => 'sessions', :action => 'destroy'
   map.login '/login', :controller => 'sessions', :action => 'new'

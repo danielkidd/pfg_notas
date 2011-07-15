@@ -38,6 +38,10 @@ div.p
     position: absolute;
     right: 0px;
 }
+div.p form
+{
+    display: inline;
+}
 #user-bar-greeting
 {
     font-size: medium;

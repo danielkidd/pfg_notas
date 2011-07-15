@@ -3,11 +3,12 @@ class Signature < ActiveRecord::Base
   has_and_belongs_to_many :students, :order=>:name
   has_many :signatures_students
   has_many :signatures_teachers
-  #has_many :tests
+  belongs_to :degree
 
+  validates_presence_of     :degree_id
   validates_presence_of     :name
   validates_length_of       :name,     :maximum => 100
-  validates_uniqueness_of   :name
+  validates_uniqueness_of   :name,     :scope=>:degree_id
 
   before_destroy :comprueba_dependencias
   def comprueba_dependencias
