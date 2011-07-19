@@ -1,8 +1,10 @@
 # This controller handles the login/logout function of the site.  
 class SessionsController < ApplicationController
-  skip_before_filter :require_logged
-  skip_before_filter :find_year
+  before_filter :ocultar_degree_selected
+  before_filter :ocultar_year_selected
   skip_before_filter :find_degree
+  skip_before_filter :find_year
+  skip_before_filter :require_logged
 
   # render new.erb.html
   def new

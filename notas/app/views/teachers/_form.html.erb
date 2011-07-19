@@ -3,6 +3,7 @@
 <% form_for(@teacher) do |f| %>
   <%= f.error_messages %>
 
+<% if current_user.is_a? Administrator %>
   <p>
     <%= f.label :login, 'Usuario' %><br />
     <%= f.text_field :login, :autocomplete=>'off' %>
@@ -15,6 +16,7 @@
     <%= f.label :name, 'Nombre' %><br />
     <%= f.text_field :name, :autocomplete=>'off' %>
   </p>
+<% end %>
   <p>
     <%= f.label :password, 'Contraseña' %><br />
     <%= f.password_field :password, :autocomplete=>'off' %>

@@ -1,0 +1,38 @@
+<p>
+  <b>Description:</b>
+  <%=h @part.description %>
+</p>
+
+<p>
+  <b>Weighted:</b>
+  <%=h @part.weighted %>
+</p>
+
+<p>
+  <b>Parent:</b>
+  <%=h @part.parent_id %>
+</p>
+
+<p>
+  <b>Min compensable:</b>
+  <%=h @part.min_compensable %>
+</p>
+
+<p>
+  <b>Ordinary:</b>
+  <%=h @part.ordinary %>
+</p>
+
+<p>
+  <b>Signature:</b>
+  <%=h @part.signature_id %>
+</p>
+
+<p>
+  <b>Year:</b>
+  <%=h @part.year_id %>
+</p>
+
+
+<%= link_to 'Edit', edit_part_path(@part) %> |
+<%= link_to 'Back', parts_path %>

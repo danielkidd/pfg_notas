@@ -2,7 +2,7 @@
 
 <% form_for(@student) do |f| %>
   <%= f.error_messages %>
-
+<% if current_user.is_a? Administrator %>
   <p>
     <%= f.label :login, 'Usuario' %><br />
     <%= f.text_field :login, :autocomplete=>'off' %>
@@ -19,6 +19,7 @@
     <%= f.label :expedient, 'Expediente' %><br/>
     <%= f.text_field :expedient, :autocomplete=>'off' %>
   </p>
+<% end %>
   <p>
     <%= f.label :password, 'Contraseña' %><br />
     <%= f.password_field :password, :autocomplete=>'off' %>

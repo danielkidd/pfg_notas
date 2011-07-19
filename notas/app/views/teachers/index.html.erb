@@ -13,11 +13,14 @@
     <td><%=h teacher.email %></td>
     <td><%=h teacher.name %></td>
     <td><%= link_to 'Mostrar', teacher %></td>
-   <% if current_user.is_a? Administrator %>
+    <% if current_user.is_a? Administrator %>
     <td><%= link_to 'Modificar', edit_teacher_path(teacher) %></td>
+    <% elsif current_user==teacher %>
+    <td><%= link_to 'Cambiar contraseña', edit_teacher_path(teacher) %></td>
+    <%end%>
+    <% if current_user.is_a? Administrator %>
     <td><%= link_to 'Eliminar', teacher, :confirm => '¿Estás seguro?', :method => :delete %></td>
-<%end%>
-
+    <% end %>
   </tr>
 <% end %>
 </table>

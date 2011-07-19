@@ -18,8 +18,10 @@
 
     <td><%= link_to 'Mostrar', student %></td>
 
-    <% if current_user.is_a? Administrator %>
+    <% if (current_user.is_a? Administrator) %>
     <td><%= link_to 'Modificar', edit_student_path(student) %></td>
+    <%end%>
+    <% if (current_user.is_a? Administrator)%>
     <td><%= link_to 'Eliminar', student, :confirm => '¿Estás seguro?', :method => :delete %></td>
     <%end%>
   </tr>

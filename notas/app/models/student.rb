@@ -23,4 +23,12 @@ class Student < User
       :joins=>'INNER JOIN signatures_students ON signature_id=signatures.id'
   end
 
+  def self.search(year_id, degree_id)
+    find :all,
+      :conditions=>['year_id=? AND degree_id=?', year_id, degree_id],
+      :joins=>[
+        'INNER JOIN signatures_students ON student_id=users.id',
+        'INNER JOIN signatures ON signature_id=signatures.id'
+        ]
+  end
 end

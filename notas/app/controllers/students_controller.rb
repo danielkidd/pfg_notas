@@ -1,10 +1,13 @@
 class StudentsController < ApplicationController
+  before_filter :require_administrator, :only=>[:create, :destroy, :new]
+  before_filter :require_administrator_or_teacher, :only=>:index
+  before_filter :require_administrator_or_teacher2, :only=>:show, :unless => :is_self
+  before_filter :require_administrator2, :only=>[:edit, :update], :unless => :is_self
+
   # GET /students
   # GET /students.xml
-  before_filter :require_administrator_or_teacher, :only=>[:index, :show]
-  before_filter :require_administrator, :except=>[:index, :show]
   def index
-    @students = Student.all
+    @students = Student.search @year_selected, @degree_selected
 
     respond_to do |format|
       format.html # index.html.erb
@@ -82,4 +85,6 @@ class StudentsController < ApplicationController
       format.xml  { head :ok }
     end
   end
+
 end
+

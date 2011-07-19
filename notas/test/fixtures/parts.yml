@@ -1,0 +1,19 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  description: MyText
+  weighted: 9.99
+  parent_id: 1
+  min_compensable: 9.99
+  ordinary: false
+  signature_id: 1
+  year_id: 1
+
+two:
+  description: MyText
+  weighted: 9.99
+  parent_id: 1
+  min_compensable: 9.99
+  ordinary: false
+  signature_id: 1
+  year_id: 1

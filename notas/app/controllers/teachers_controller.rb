@@ -1,9 +1,11 @@
 class TeachersController < ApplicationController
+  before_filter :require_administrator, :only=>[:create, :destroy, :new]
+  before_filter :require_administrator2, :only=>[:edit, :update], :unless => :is_self
+
   # GET /teachers
   # GET /teachers.xml
-  before_filter :require_administrator, :except=>[:index, :show]
   def index
-    @teachers = Teacher.all
+    @teachers = Teacher.search @year_selected, @degree_selected
 
     respond_to do |format|
       format.html # index.html.erb

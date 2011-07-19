@@ -1,5 +1,10 @@
 class YearsController < ApplicationController
+  before_filter :ocultar_degree_selected
+  before_filter :ocultar_year_selected
+  skip_before_filter :find_degree
+  skip_before_filter :find_year
   before_filter :require_administrator
+
   # GET /years
   # GET /years.xml
   def index

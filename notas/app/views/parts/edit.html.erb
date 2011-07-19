@@ -1,0 +1,40 @@
+<h1>Editing part</h1>
+
+<% form_for(@part) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :description %><br />
+    <%= f.text_area :description %>
+  </p>
+  <p>
+    <%= f.label :weighted %><br />
+    <%= f.text_field :weighted %>
+  </p>
+  <p>
+    <%= f.label :parent_id %><br />
+    <%= f.text_field :parent_id %>
+  </p>
+  <p>
+    <%= f.label :min_compensable %><br />
+    <%= f.text_field :min_compensable %>
+  </p>
+  <p>
+    <%= f.label :ordinary %><br />
+    <%= f.check_box :ordinary %>
+  </p>
+  <p>
+    <%= f.label :signature_id %><br />
+    <%= f.text_field :signature_id %>
+  </p>
+  <p>
+    <%= f.label :year_id %><br />
+    <%= f.text_field :year_id %>
+  </p>
+  <p>
+    <%= f.submit 'Update' %>
+  </p>
+<% end %>
+
+<%= link_to 'Show', @part %> |
+<%= link_to 'Back', parts_path %>

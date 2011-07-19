@@ -1,6 +1,4 @@
 class SignaturesController < ApplicationController
-  skip_before_filter :ocultar_degree_selected
-  skip_before_filter :ocultar_year_selected
   before_filter :require_administrator, :except=>[:index, :show]
   # GET /signatures
   # GET /signatures.xml

@@ -4,6 +4,7 @@ class Signature < ActiveRecord::Base
   has_many :signatures_students
   has_many :signatures_teachers
   belongs_to :degree
+  has_many :parts
 
   validates_presence_of     :degree_id
   validates_presence_of     :name

@@ -8,7 +8,7 @@
       <%= hidden_field_tag 'url', request.request_uri %>
     <% end -%>
   <% end -%>
-  <% unless @degree_selected.blank? || current_user.is_a?(Student) || @ocultar_degree_selected -%>
+  <% unless @ocultar_degree_selected || @degree_selected.blank? || current_user.is_a?(Student) -%>
     <% form_tag(change_degree_path, :method => :get) do -%>
       <%= select_tag 'id', options_for_select(
         Degree.all.collect { |d| [d.name, d.id] }, @degree_selected.id),
@@ -28,6 +28,8 @@
     <li id="nav-2"><%= link_to 'Profesores', teachers_path %></li>
     <% unless current_user.is_a? Student -%>
       <li id="nav-3"><%= link_to 'Estudiantes', students_path %></li>
+    <% else -%>
+      <li id="nav-6"><%= link_to 'Datos Alumno', current_user %></li>
     <% end -%>
     <% if current_user.is_a? Administrator -%>
       <li id="nav-4"><%= link_to 'Cursos', years_path %></li>

@@ -15,8 +15,6 @@ class ApplicationController < ActionController::Base
 
   before_filter :find_year
   before_filter :find_degree
-  before_filter :ocultar_degree_selected
-  before_filter :ocultar_year_selected
 
   layout 'application'
 
@@ -36,6 +34,7 @@ protected
       @administrator = current_user
     end
   end
+  alias :require_administrator2 :require_administrator
 
   def require_teacher
     unless current_user.is_a? Teacher
@@ -64,6 +63,22 @@ protected
       flash[:error] = 'Acceso no permitido.'
       redirect_to '/'
     end
+  end
+  alias :require_administrator_or_teacher2 :require_administrator_or_teacher
+
+  def require_administrator_or_student
+    if current_user.is_a? Administrator
+      @administrator = current_user
+    elsif current_user.is_a? Student
+      @student = current_user
+    else
+      flash[:error] = 'Acceso no permitido.'
+      redirect_to '/'
+    end
+  end
+
+  def is_self
+    User.find(params[:id]) == current_user
   end
 
   def find_year

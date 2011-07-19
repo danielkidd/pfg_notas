@@ -1,8 +1,9 @@
 <h1>Datos de la Asignatura</h1>
 
+<br/>
 <p>
-  <b>Nombre:</b>
-  <%=h @signature.name %>
+  <b><h2>Nombre: <%=h @signature.name %></h2></b>
+
 </p>
 
 <% if current_user.is_a? Administrator %>
@@ -13,4 +14,4 @@
 <br />
 <br />
 <br />
-<%= render 'show_admin' if current_user.is_a? Administrator %>
+<%= render "show_#{current_user.type.to_s.underscore}" %>

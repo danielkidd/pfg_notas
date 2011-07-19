@@ -9,10 +9,22 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110620161636) do
+ActiveRecord::Schema.define(:version => 20110719083837) do
 
   create_table "degrees", :force => true do |t|
     t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "parts", :force => true do |t|
+    t.text     "description"
+    t.decimal  "weighted",        :precision => 5, :scale => 2
+    t.integer  "parent_id"
+    t.decimal  "min_compensable", :precision => 4, :scale => 2
+    t.boolean  "ordinary"
+    t.integer  "signature_id"
+    t.integer  "year_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
