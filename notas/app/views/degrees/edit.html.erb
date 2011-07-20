@@ -2,5 +2,9 @@
 
 <%= render :partial => 'form' %>
 
-<%= link_to 'Mostrar', @degree %> |
-<%= link_to 'Volver al listado', degrees_path %>
+<%link_to @degree ,:class =>"left primary pill button" do%>
+ <span class="magnifier icon"></span><span>Mostrar</span>
+<%end%>
+<%  link_to degrees_path, :class=>"right negative pill button" do%>
+  <span class="home icon"></span><span>Volver al listado</span>
+<%end%>

@@ -1,32 +1,42 @@
-<h1>Listing parts</h1>
+<h1>Listado de Bloques</h1>
 
 <table>
   <tr>
-    <th>Description</th>
-    <th>Weighted</th>
-    <th>Parent</th>
-    <th>Min compensable</th>
-    <th>Ordinary</th>
-    <th>Signature</th>
-    <th>Year</th>
+    <th>Descripción</th>
+    <th>Porcentaje</th>
+    <th>Mínimo compensable</th>
+    <th>Tipo Matrícula</th>
+    <th>Asignatura</th>
+    <th>Curso Académico</th>
   </tr>
 
 <% @parts.each do |part| %>
-  <tr>
+  <tr class="<%= cycle('impar', 'par') %>">
     <td><%=h part.description %></td>
     <td><%=h part.weighted %></td>
-    <td><%=h part.parent_id %></td>
     <td><%=h part.min_compensable %></td>
     <td><%=h part.ordinary %></td>
     <td><%=h part.signature_id %></td>
     <td><%=h part.year_id %></td>
-    <td><%= link_to 'Show', part %></td>
-    <td><%= link_to 'Edit', edit_part_path(part) %></td>
-    <td><%= link_to 'Destroy', part, :confirm => 'Are you sure?', :method => :delete %></td>
+
+    <td> 
+      <%link_to part ,:class =>"left primary pill button" do%>
+        <span class="magnifier icon"></span><span>Mostrar</span>
+      <%end%>
+      <% link_to edit_part_path(part), :class=>"middle pill button" do%>
+        <span class="pen icon"></span><span>Modificar</span>
+      <%end%>
+      <%link_to part ,:confirm => '¿Estás seguro?', :method => :delete ,:class =>"right negative pill button" do%>
+        <span class="cross icon"></span><span>Eliminar</span>
+      <%end%>
+    </td>
   </tr>
 <% end %>
 </table>
 
 <br />
 
-<%= link_to 'New part', new_signature_part_path(@signature) %>
+<%link_to new_signature_part_path ,:class=>"button" do%>
+  <span class="plus icon"></span><span>Nuevo bloque</span>
+<%end%>
+

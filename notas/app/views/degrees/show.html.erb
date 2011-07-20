@@ -1,10 +1,18 @@
 <h1>Mostrar titulaciones</h1>
 
-<p>
+<br/>
+
+<h3>
   <b>Nombre:</b>
   <%=h @degree.name %>
-</p>
+</h3>
 
+<br/>
+<br/>
 
-<%= link_to 'Modificar', edit_degree_path(@degree) %> |
-<%= link_to 'Volver al listado', degrees_path %>
+<% link_to edit_degree_path(@year), :class=>"button" do%>
+  <span class="pen icon"></span><span>Modificar</span>
+<%end%>
+<%  link_to degree_path, :class=>"button" do%>
+  <span class="home icon"></span><span>Volver al listado</span>
+<%end%>

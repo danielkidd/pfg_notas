@@ -1,38 +1,44 @@
+<h1>Mostrar Bloques</h1>
+
 <p>
-  <b>Description:</b>
+  <b>Descripción:</b>
   <%=h @part.description %>
 </p>
 
 <p>
-  <b>Weighted:</b>
+  <b>Porcentaje:</b>
   <%=h @part.weighted %>
 </p>
-
+<!--
 <p>
   <b>Parent:</b>
   <%=h @part.parent_id %>
 </p>
-
+-->
 <p>
-  <b>Min compensable:</b>
+  <b>Mínimo compensable:</b>
   <%=h @part.min_compensable %>
 </p>
 
 <p>
-  <b>Ordinary:</b>
+  <b>Tipo Matrícula:</b>
   <%=h @part.ordinary %>
 </p>
 
 <p>
-  <b>Signature:</b>
+  <b>Asignatura:</b>
   <%=h @part.signature_id %>
 </p>
 
 <p>
-  <b>Year:</b>
-  <%=h @part.year_id %>
+  <b>Curso académico:</b>
+  <%=h @part.year_id.to_s %>
 </p>
 
 
-<%= link_to 'Edit', edit_part_path(@part) %> |
-<%= link_to 'Back', parts_path %>
+<% link_to edit_part_path(@part), :class=>"left primary pill button" do%>
+  <span class="pen icon"></span><span>Modificar</span>
+<%end%>
+<%  link_to parts_path, :class=>"right negative pill button" do%>
+  <span class="home icon"></span><span>Volver al listado</span>
+<%end%>

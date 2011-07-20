@@ -25,8 +25,11 @@
 <% end %>
 
 <% if (current_user.is_a? Administrator) %>
-  <%= link_to 'Modificar', edit_student_path(@student) %> |
-<% elsif (current_user == @student)  %>
-  <%= link_to 'Cambiar contraseña', edit_student_path(@student) %>
+    <%  link_to edit_student_path(@student), :class=>"button" do%>
+      <span class="pen icon"></span><span>Modificar</span>
+    <%end%>
+  <% elsif (current_user == @student)  %>
+  <%  link_to edit_student_path(@student), :class=>"button" do%>
+      <span class="key icon"></span><span>Cambiar contraseña</span>
+    <%end%>
 <%end%>
-<%= link_to 'Volver al listado', students_path unless current_user.is_a?(Student) %>

@@ -6,14 +6,25 @@
   </tr>
 
 <% @years.each do |year| %>
-  <tr>
+  <tr class="<%= cycle('impar', 'par') %>">
     <td><%=h year.to_s %></td>
-    <td><%= link_to 'Modificar', edit_year_path(year) %></td>
-    <td><%= link_to 'Eliminar', year, :confirm => '¿Estás seguro?', :method => :delete %></td>
+    <td>
+      
+      <% link_to edit_year_path(year), :class=>"left primary pill button" do%>
+        <span class="pen icon"></span><span>Modificar</span>
+      <%end%>
+      <%link_to year ,:confirm => '¿Estás seguro?', :method => :delete ,:class =>"right negative pill button" do%>
+        <span class="cross icon"></span><span>Eliminar</span>
+      <%end%>
+    </td>
   </tr>
 <% end %>
 </table>
 
 <br />
+<% if current_user.is_a? Administrator %>
+  <%link_to new_year_path ,:class=>"button" do%>
+    <span class="plus icon"></span><span>Nuevo curso</span>
+  <%end%>
 
-<%= link_to 'Nuevo Curso', new_year_path %>
+<%end%>

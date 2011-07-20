@@ -5,13 +5,25 @@
   <b><h2>Nombre: <%=h @signature.name %></h2></b>
 
 </p>
+<br />
 
 <% if current_user.is_a? Administrator %>
-  <%= link_to 'Modificar', edit_signature_path(@signature) %> |
+  <%  link_to edit_signature_path(@signature), :class=>" button" do%>
+    <span class="pen icon"></span><span>Modificar</span>
+  <%end%>
 <%end%>
-<%= link_to 'Volver al listado', signatures_path %>
+
 
 <br />
 <br />
 <br />
+
 <%= render "show_#{current_user.type.to_s.underscore}" %>
+
+<br />
+<br />
+<br />
+
+<%  link_to signatures_path, :class=>"button" do%>
+  <span class="home icon"></span><span>Volver al listado</span>
+<%end%>

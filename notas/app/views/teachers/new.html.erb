@@ -2,4 +2,6 @@
 
 <%= render :partial => 'form' %>
 
-<%= link_to 'Volver al listado', teachers_path %>
+<%  link_to teachers_path, :class=>"button" do%>
+  <span class="home icon"></span><span>Volver al listado</span>
+<%end%>

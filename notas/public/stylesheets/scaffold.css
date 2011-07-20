@@ -128,7 +128,7 @@ h4.pie {
 
 tr.impar { background-color: #E8EBF0; }
 tr.par { background-color:ghostwhite; }
-tr.impar td, tr.par td { padding: 2px 5px; }
+tr.impar td, tr.par td { padding: 4px 5px; }
 
 
 

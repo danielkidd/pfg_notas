@@ -5,14 +5,17 @@
     <th>E-mail</th>
     <th></th>
   </tr>
-<% @signature.signatures_teachers.find(:all, :conditions=>['year_id=?',@year_selected]).each do |signature_teacher| %>
+<% @signature.signatures_teachers.find(:all, :conditions=>['year_id=?',@year_selected]).each do |signatures_teacher| %>
   <tr class="<%= cycle('par','impar') %>">
-    <td><%=h signature_teacher.teacher.name %></td>
-    <td><%=h signature_teacher.teacher.email %></td>
-    <td><%= link_to 'Eliminar asignación',
-            {:action=>'destroy_teacher', :id=>@signature,
-            :year_id=>@year_selected.id, :teacher_id=>signature_teacher.teacher_id},
-            :confirm => '¿Estás seguro?', :method => :delete %></td>
+    <td><%=h signatures_teacher.teacher.name %></td>
+    <td><%=h signatures_teacher.teacher.email %></td>
+    <td>
+      <%= link_to "Eliminar asignación",
+          {:action=>'destroy_teacher', :id=>@signature,
+          :year_id=>@year_selected.id, :teacher_id=>signatures_teacher.teacher_id},
+          :confirm => '¿Estás seguro?', :method => :delete ,
+          :class=>"button" %>
+    </td>
   </tr>
 <% end %>
 </table>
@@ -49,7 +52,9 @@
     <td><%= link_to 'Eliminar matricula',
             {:action=>'destroy_student', :id=>@signature,
             :year_id=>@year_selected.id, :student_id=>signatures_student.student_id},
-            :confirm => '¿Estás seguro?', :method => :delete %></td>
+            :confirm => '¿Estás seguro?', :method => :delete ,
+            :class=>"button" %>
+    </td>
     </tr>
   <% end %>
 </table>

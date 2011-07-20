@@ -5,5 +5,9 @@
 </p>
 
 
-<%= link_to 'Modificar', edit_year_path(@year) %> |
-<%= link_to 'Volver al listado', years_path %>
+<% link_to edit_year_path(@year), :class=>"button" do%>
+  <span class="pen icon"></span><span>Modificar</span>
+<%end%>
+<%  link_to year_path, :class=>"button" do%>
+  <span class="home icon"></span><span>Volver al listado</span>
+<%end%>

@@ -2,5 +2,6 @@
 
 <%= render :partial => 'form' %>
 
-<%= link_to 'Mostrar', @year %> |
-<%= link_to 'Volver al listado', years_path %>
+<%  link_to years_path, :class=>"button" do%>
+  <span class="home icon"></span><span>Volver al listado</span>
+<%end%>
