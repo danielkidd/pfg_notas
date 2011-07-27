@@ -31,4 +31,8 @@ class Student < User
         'INNER JOIN signatures ON signature_id=signatures.id'
         ]
   end
+
+  def to_s
+    "#{expedient} - #{name}"
+  end
 end

@@ -9,7 +9,11 @@ ActionController::Routing::Routes.draw do |map|
       :create_teacher => :post,
       :destroy_teacher => :delete
     } do |signature|
-      signature.resources :parts
+      signature.resources :parts do |part|
+        part.resources :exams do |exam|
+          exam.resources :evaluations, :only => [:create, :update, :destroy]
+        end
+      end
     end
 
   map.resources :teachers

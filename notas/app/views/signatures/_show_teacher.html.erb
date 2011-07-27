@@ -17,5 +17,9 @@
 <br />
 <br />
 
-<%= link_to 'Bloques ordinaria', signature_parts_path(@signature, :ordinary=>true) %> |
-<%= link_to 'Bloques extraordinaria', signature_parts_path(@signature) %>
+<% link_to  signature_parts_path(@signature, :ordinary=>true), :class=>"left pill button" do%>
+  <span class="book icon"></span><span>Bloques ordinaria</span>
+<%end%>
+<% link_to signature_parts_path(@signature, :ordinary=>false), :class=>"right pill button" do %>
+  <span class="book icon"></span><span>Bloques extraordinaria</span>
+<%end%>

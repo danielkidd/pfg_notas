@@ -1,13 +1,12 @@
 <h1>Mostrar curso </h1>
 <p>
-  <b>Curso:</b>
-  <%=h @year.start_year %>
+  <h3>Curso: <%=h @year.start_year %></h3>
 </p>
 
 
-<% link_to edit_year_path(@year), :class=>"button" do%>
+  <% link_to edit_year_path(@year), :class=>"left pill button" do%>
   <span class="pen icon"></span><span>Modificar</span>
 <%end%>
-<%  link_to year_path, :class=>"button" do%>
+<%  link_to year_path, :class=>"right pill button" do%>
   <span class="home icon"></span><span>Volver al listado</span>
 <%end%>

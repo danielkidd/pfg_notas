@@ -2,7 +2,7 @@ class HomeController < ApplicationController
   def index
     respond_to do |format|
       if current_user.is_a? Administrator
-        format.html { redirect_to(teachers_url) } # provisional
+        format.html { redirect_to(signatures_url) } # provisional
       elsif current_user.is_a? Teacher
         format.html { redirect_to(signatures_url) } # provisional
       elsif current_user.is_a? Student

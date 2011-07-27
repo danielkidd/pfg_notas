@@ -2,9 +2,9 @@
 
 <%= render :partial => 'form' %>
 
-<%link_to @part ,:class =>"left primary pill button" do%>
+<%link_to signature_part_path(@signature, @part), :class =>"left pill button" do%>
   <span class="magnifier icon"></span><span>Mostrar</span>
 <%end%>
-<%  link_to parts_path, :class=>"right negative pill button" do%>
+<% link_to signature_parts_path(@signature, :ordinary=>@ordinary, :parent_id=>@parent), :class=>"right pill button" do%>
   <span class="home icon"></span><span>Volver al listado</span>
 <%end%>

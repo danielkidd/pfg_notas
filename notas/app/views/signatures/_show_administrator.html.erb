@@ -9,12 +9,12 @@
   <tr class="<%= cycle('par','impar') %>">
     <td><%=h signatures_teacher.teacher.name %></td>
     <td><%=h signatures_teacher.teacher.email %></td>
-    <td>
-      <%= link_to "Eliminar asignación",
+    <td class="botones">
+      <%= link_to '<span class="cross icon"></span><span>Eliminar asignación</span>',
           {:action=>'destroy_teacher', :id=>@signature,
           :year_id=>@year_selected.id, :teacher_id=>signatures_teacher.teacher_id},
           :confirm => '¿Estás seguro?', :method => :delete ,
-          :class=>"button" %>
+          :class=>"negative pill button" %>
     </td>
   </tr>
 <% end %>
@@ -27,7 +27,8 @@
     <%= f.label :teacher_id, 'Profesor' %><br />
     <%= f.collection_select :teacher_id, new_teachers, :id, :name, :prompt => 'Seleccionar profesor' %>
     <%= f.hidden_field :year_id, :value=>@year_selected.id %>
-    <%= f.submit 'Asignar' %>
+    <%#= f.submit 'Asignar' %>
+    <button class="pill button"><span class="plus icon"></span>Asignar</button>
   </p>
 <%end%>
 
@@ -49,11 +50,12 @@
       <td><%=h signatures_student.student.name %></td>
       <td><%=h signatures_student.student.expedient %></td>
       <td><%= signatures_student.ordinary ? 'Ordinaria' : 'Extraordinaria' %></td>
-    <td><%= link_to 'Eliminar matricula',
+      <td class="botones">
+        <%= link_to '<span class="cross icon"></span><span>Eliminar matricula</span>',
             {:action=>'destroy_student', :id=>@signature,
             :year_id=>@year_selected.id, :student_id=>signatures_student.student_id},
             :confirm => '¿Estás seguro?', :method => :delete ,
-            :class=>"button" %>
+            :class=>"negative pill button" %>
     </td>
     </tr>
   <% end %>
@@ -69,6 +71,6 @@
     <%= f.select :ordinary, options_for_select({'Ordinaria'=>true, 'Extraordinaria'=>false}, @signatures_student.ordinary) %>
     <%= f.hidden_field :year_id, :value=>@year_selected.id %>
 
-    <%= f.submit 'Matricular' %>
+   <button class="pill button"><span class="plus icon"></span>Matricular</button>
   </p>
 <% end %>

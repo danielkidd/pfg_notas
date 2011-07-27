@@ -1,20 +1,20 @@
-<h1>Mostrar Bloques</h1>
+<h1>Datos del Bloque por <%= @ordinary ? 'ordinaria' : 'extraordinaria' %> de la asignatura: <%= @signature.name %></h1>
 
 <p>
   <b>Descripción:</b>
-  <%=h @part.description %>
+  <pre><%=h @part.description %></pre>
 </p>
 
 <p>
-  <b>Porcentaje:</b>
-  <%=h @part.weighted %>
+  <b>Ponderación:</b>
+  <%=h @part.weighted %>%
 </p>
-<!--
-<p>
-  <b>Parent:</b>
-  <%=h @part.parent_id %>
-</p>
--->
+<% if @part.parent -%>
+  <p>
+    <b>Pertenece al bloque:</b>
+    <%= truncate h(@part.parent.description) %>
+  </p>
+<% end -%>
 <p>
   <b>Mínimo compensable:</b>
   <%=h @part.min_compensable %>
@@ -22,23 +22,59 @@
 
 <p>
   <b>Tipo Matrícula:</b>
-  <%=h @part.ordinary %>
+  <%= @part.ordinary ? 'ordinaria' : 'extraordinaria' %>
 </p>
 
 <p>
   <b>Asignatura:</b>
-  <%=h @part.signature_id %>
+  <%=h @part.signature.name %>
 </p>
 
 <p>
   <b>Curso académico:</b>
-  <%=h @part.year_id.to_s %>
+  <%=h @part.year.to_s %>
 </p>
+<%if @part.exams.any?%>
+  <br/>
+  <h3>Examenes de este bloque</h3>
+  <table>
+    <tr>
+      <th>Fecha</th>
+    </tr>
+  <% @part.exams.each do |exam| %>
+    <tr class="<%= cycle('impar', 'par') %>">
+       <td><%=h exam.date %></td>
+       <td class="botones">
+        <%link_to signature_part_exam_path(@signature, @part, exam) ,:class =>"left pill button" do%>
+          <span class="magnifier icon"></span><span>Mostrar</span>
+        <%end%>
+        <% link_to edit_signature_part_exam_path(@signature, @part, exam), :class=>"middle pill button" do%>
+          <span class="pen icon"></span><span>Modificar</span>
+        <%end%>
+        <%link_to signature_part_exam_path(@signature, @part, exam) ,:confirm => '¿Estás seguro?', :method => :delete ,:class =>"right negative pill button" do%>
+          <span class="trash icon"></span><span>Eliminar</span>
+        <%end%>
+      </td>
+    </tr>
+  <% end %>
+  </table>
+<%end%>
+<br/>
 
-
-<% link_to edit_part_path(@part), :class=>"left primary pill button" do%>
+<% link_to edit_signature_part_path(@signature, @part), :class=>"left pill button" do%>
   <span class="pen icon"></span><span>Modificar</span>
 <%end%>
-<%  link_to parts_path, :class=>"right negative pill button" do%>
+<% if @part.children.any? %>
+  <% link_to signature_parts_path(@signature, :ordinary=>@ordinary, :parent_id=>@part.id), :class =>"middle pill button" do%>
+    <span class="magnifier icon"></span><span>Ver sub-bloques</span>
+  <%end%>
+<%end%>
+<%link_to new_signature_part_path(@signature, :ordinary=>@ordinary, :parent_id=>@part) ,:class=>"middle pill button" do%>
+  <span class="plus icon"></span><span>Nuevo sub-bloque</span>
+<%end%>
+<% link_to new_signature_part_exam_path(@signature, @part), :class=>"middle pill button" do%>
+  <span class="plus icon"></span><span>Nuevo exam</span>
+<%end%>
+<% link_to signature_parts_path(@signature, :ordinary=>@ordinary, :parent_id=>@parent), :class=>"right pill button" do%>
   <span class="home icon"></span><span>Volver al listado</span>
 <%end%>

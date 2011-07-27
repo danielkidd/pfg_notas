@@ -2,4 +2,6 @@
 
 <%= render :partial => 'form' %>
 
- <%= link_to 'Volver al listado', degrees_path %>
+ <%  link_to degrees_path, :class=>"pill button" do%>
+  <span class="home icon"></span><span>Volver al listado</span>
+<%end%>

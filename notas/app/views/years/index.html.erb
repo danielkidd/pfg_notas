@@ -8,13 +8,13 @@
 <% @years.each do |year| %>
   <tr class="<%= cycle('impar', 'par') %>">
     <td><%=h year.to_s %></td>
-    <td>
+    <td class="botones">
       
-      <% link_to edit_year_path(year), :class=>"left primary pill button" do%>
+      <% link_to edit_year_path(year), :class=>"left pill button" do%>
         <span class="pen icon"></span><span>Modificar</span>
       <%end%>
       <%link_to year ,:confirm => '¿Estás seguro?', :method => :delete ,:class =>"right negative pill button" do%>
-        <span class="cross icon"></span><span>Eliminar</span>
+        <span class="trash icon"></span><span>Eliminar</span>
       <%end%>
     </td>
   </tr>
@@ -23,7 +23,7 @@
 
 <br />
 <% if current_user.is_a? Administrator %>
-  <%link_to new_year_path ,:class=>"button" do%>
+  <%link_to new_year_path ,:class=>"pill button" do%>
     <span class="plus icon"></span><span>Nuevo curso</span>
   <%end%>
 

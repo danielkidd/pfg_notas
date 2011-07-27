@@ -1,0 +1,13 @@
+<% form_for([@signature, @part, @exam]) do |f| %>
+  <%= f.hidden_field :part_id %>
+
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :fecha %><br />
+    <%= f.date_select :date %>
+  </p>
+  <p>
+    <button class="pill button"><span class="check icon"></span>Guardar</button>
+  </p>
+<% end %>

@@ -1,42 +1,58 @@
-<h1>Listado de Bloques</h1>
+<h1>Bloques por <%= @ordinary ? 'ordinaria' : 'extraordinaria' %> de la asignatura: <%= @signature.name %></h1>
+<h2>
+  <% if @parent %>
+    Pertenecientes al bloque: <%= truncate h(@parent.description) %>
+    <% link_to signature_parts_path(@signature, :ordinary=>@ordinary, :parent_id=>@parent.parent), :class=>"pill button" do%>
+      <span class="uparrow icon"></span><span>ver bloque superior</span>
+    <%end%>
+  <% else %>
+    Bloques raiz
+  <% end %>
+</h2>
 
 <table>
   <tr>
     <th>Descripción</th>
-    <th>Porcentaje</th>
+    <th>Ponderación</th>
     <th>Mínimo compensable</th>
-    <th>Tipo Matrícula</th>
-    <th>Asignatura</th>
-    <th>Curso Académico</th>
   </tr>
 
-<% @parts.each do |part| %>
+<% suma=0 -%>
+<% @parts.each do |part| suma+=part.weighted -%>
   <tr class="<%= cycle('impar', 'par') %>">
-    <td><%=h part.description %></td>
-    <td><%=h part.weighted %></td>
-    <td><%=h part.min_compensable %></td>
-    <td><%=h part.ordinary %></td>
-    <td><%=h part.signature_id %></td>
-    <td><%=h part.year_id %></td>
+    <td><%= truncate h(part.description) %></td>
+    <td class="num"><%=h part.weighted %></td>
+    <td class="num"><%=h part.min_compensable %></td>
 
-    <td> 
-      <%link_to part ,:class =>"left primary pill button" do%>
-        <span class="magnifier icon"></span><span>Mostrar</span>
+    <td class="botones">
+    
+        <% link_to signature_part_path(@signature, part), :class =>"left pill button" do%>
+          <span class="magnifier icon"></span><span>Mostrar</span>
+        <%end%>
+            <% if part.children.any? %>
+      <% link_to signature_parts_path(@signature, :ordinary=>@ordinary, :parent_id=>part), :class =>"middle pill button" do%>
+          <span class="magnifier icon"></span><span>Ver sub-bloques</span>
+        <%end%>
       <%end%>
-      <% link_to edit_part_path(part), :class=>"middle pill button" do%>
-        <span class="pen icon"></span><span>Modificar</span>
-      <%end%>
-      <%link_to part ,:confirm => '¿Estás seguro?', :method => :delete ,:class =>"right negative pill button" do%>
-        <span class="cross icon"></span><span>Eliminar</span>
+      <%link_to signature_part_path(@signature, part), :confirm => '¿Estás seguro?', :method => :delete ,:class =>"right negative pill button" do%>
+        <span class="trash icon"></span><span>Eliminar</span>
       <%end%>
     </td>
   </tr>
-<% end %>
+<% end -%>
+<% unless @parts.empty? -%>
+  <tr>
+    <th>Total:</th>
+    <th class="num"><%if suma==100%><p class="correcto"><%= suma %></p><%else%><%=suma%><%end%></th>
+    <th colspan="2" class="error"><%= 'Error: La suma de ponderaciones debe sumar 100.' unless suma==100 %></th>
+  </tr>
+<% end -%>
 </table>
 
-<br />
-
-<%link_to new_signature_part_path ,:class=>"button" do%>
-  <span class="plus icon"></span><span>Nuevo bloque</span>
-<%end%>
-
+  <br />
+  <% link_to @signature ,:class =>"left pill button" do %>
+        <span class="magnifier icon"></span><span>Volver a asignatura: <%=  @signature.name%></span>
+      <% end %>
+  <%link_to new_signature_part_path(@signature, :ordinary=>@ordinary, :parent_id=>@parent) ,:class=>"right pill button" do%>
+    <span class="plus icon"></span><span>Nuevo bloque</span>
+  <%end%>

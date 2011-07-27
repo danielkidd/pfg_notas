@@ -1,0 +1,10 @@
+<h1>Editando examen</h1>
+
+<%= render :partial => 'form' %>
+
+<%link_to signature_part_exam_path(@signature, @part, @exam) ,:class =>"left pill button" do%>
+ <span class="magnifier icon"></span><span>Mostrar</span>
+<%end%>
+<%  link_to signature_part_exams_path(@signature, @part), :class=>"right pill button" do%>
+  <span class="home icon"></span><span>Volver al listado</span>
+<%end%>

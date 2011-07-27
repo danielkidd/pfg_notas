@@ -37,4 +37,12 @@
     <% end -%>
   </ul>
 
+  <% unless @migas.blank? %>
+    <ul class="migas">
+      <% @migas.reverse.each do |miga| -%>
+        <li> &gt; <%= link_to truncate(miga.values.first), miga.keys.first %></li>
+      <% end -%>
+    </ul>
+  <% end -%>
+
 <% end -%>

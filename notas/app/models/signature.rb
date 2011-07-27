@@ -13,7 +13,7 @@ class Signature < ActiveRecord::Base
 
   before_destroy :comprueba_dependencias
   def comprueba_dependencias
-    raise 'No se puede borrar esta asignatura' unless signatures_students.blank? && signatures_teachers.blank?
+    raise 'No se puede borrar esta asignatura' unless signatures_students.blank? && signatures_teachers.blank? && parts.blank?
   end
 
   # devuelve un array con los nombres de los profesores

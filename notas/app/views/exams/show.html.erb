@@ -1,0 +1,56 @@
+<h1>Datos del Examen perteneciente al bloque: <%=truncate h(@exam.part.description) %></h1>
+<h2>
+  <br/>
+  <b>Fecha:</b>
+  <%=h @exam.date %>
+</h2>
+<br/>
+
+<% link_to edit_signature_part_exam_path(@signature, @part, @exam), :class=>"pill button" do%>
+  <span class="pen icon"></span><span>Modificar</span>
+<%end%>
+
+<br/>
+<br/>
+
+<h3>Notas por alumno en este examen</h3>
+<table>
+  <tr>
+    <th>Alumno</th>
+    <th>Calificación</th>
+    <th></th>
+  </tr>
+<% @exam.evaluations.each do |evaluation| %>
+  <% unless evaluation.new_record? %>
+  <tr>
+    <td><%= evaluation.signatures_student.student.to_s %></td>
+    <td class="num"><%= evaluation.calification %></td>
+    <td></td>
+  </tr>
+  <% end %>
+<% end %>
+</table>
+<% lista_signatures_students = new_signatures_students %>
+<% @evaluation ||= @exam.evaluations.build %>
+<% form_for([@signature, @part, @exam, @evaluation]) do |f| %>
+  <%= f.error_messages %>
+  <p>
+    <%= f.label :signatures_student_id, 'Alumno' %><br />
+    <%= f.collection_select :signatures_student_id, lista_signatures_students, :id, :student_name, :prompt => 'Seleccionar alumno' %>
+  </p>
+  <p>
+    <%= f.label :calification, 'Calificación' %><br />
+    <%= f.text_field :calification, :class=>'num' %>
+  </p>
+  <p>
+   <button class="pill button"><span class="check icon"></span>Insertar nota</button>
+  </p>
+<% end %>
+
+
+<br/>
+<br/>
+
+<% link_to signature_part_exams_path(@signature, @part), :class=>"pill button" do%>
+  <span class="home icon"></span><span>Volver al listado</span>
+<%end%>

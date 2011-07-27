@@ -9,10 +9,25 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110719083837) do
+ActiveRecord::Schema.define(:version => 20110726091717) do
 
   create_table "degrees", :force => true do |t|
     t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "evaluations", :force => true do |t|
+    t.integer  "calification",          :limit => 10, :precision => 10, :scale => 0
+    t.integer  "exam_id"
+    t.integer  "signatures_student_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "exams", :force => true do |t|
+    t.date     "date"
+    t.integer  "part_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

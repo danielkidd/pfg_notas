@@ -8,15 +8,14 @@
 <br />
 
 <% if current_user.is_a? Administrator %>
-  <%  link_to edit_signature_path(@signature), :class=>" button" do%>
+  <%  link_to edit_signature_path(@signature), :class=>"pill button" do%>
     <span class="pen icon"></span><span>Modificar</span>
   <%end%>
 <%end%>
 
 
 <br />
-<br />
-<br />
+
 
 <%= render "show_#{current_user.type.to_s.underscore}" %>
 
@@ -24,6 +23,6 @@
 <br />
 <br />
 
-<%  link_to signatures_path, :class=>"button" do%>
+<% link_to signatures_path, :class=>"pill button" do%>
   <span class="home icon"></span><span>Volver al listado</span>
 <%end%>

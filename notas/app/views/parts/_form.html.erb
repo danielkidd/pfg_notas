@@ -1,37 +1,29 @@
-<% form_for(@part) do |f| %>
+<% form_for([@signature, @part]) do |f| %>
+  <%= hidden_field_tag :ordinary, true if @ordinary %>
+  <%= hidden_field_tag :parent_id, @parent.id if @parent %>
+
+  <% if @part.new_record? -%>
+    <%= f.hidden_field :ordinary %>
+    <%= f.hidden_field :signature_id %>
+    <%= f.hidden_field :year_id %>
+    <%= f.hidden_field :parent_id %>
+  <% end -%>
+
   <%= f.error_messages %>
 
   <p>
-    <%= f.label :description,'Descripción' %><br />
+    <%= f.label :description, 'Descripción' %><br />
     <%= f.text_area :description %>
   </p>
   <p>
-    <%= f.label :weighted,'Porcentaje' %><br />
-    <%= f.text_field :weighted %>
+    <%= f.label :weighted, 'Ponderación' %><br />
+    <%= f.text_field :weighted, :class=>'num' %>
   </p>
- <!-- <p>
-    <%= f.label :parent_id, %><br />
-    <%= f.text_field :parent_id %>
-  </p>
- -->
   <p>
     <%= f.label :min_compensable,'Mínimo compensable' %><br />
-    <%= f.text_field :min_compensable %>
+    <%= f.text_field :min_compensable, :class=>'num' %>
   </p>
   <p>
-    <%= f.label :ordinary,'Tipo Matrícula' %><br />
-    <%= f.check_box :ordinary %>
-  </p>
-  <p>
-    <%= f.label :signature_id, 'Asignatura' %><br />
-    <%= f.hidden_field :signature_id if @part.new_record? %>
-    <%= text_field_tag 'signature', @part.signature.name, :disabled=>true, :size=>50 %>
-  </p>
-  <p>
-    <%= f.label :year_id,'Año' %><br />
-    <%= f.text_field :year_id %>
-  </p>
-  <p>
-    <%= f.submit 'Crear Bloque' %>
+    <button class="pill button"><span class="check icon"></span>Guardar</button>
   </p>
 <% end %>

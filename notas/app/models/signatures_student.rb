@@ -2,6 +2,7 @@ class SignaturesStudent < ActiveRecord::Base
   belongs_to :student
   belongs_to :signature
   belongs_to :year
+  has_many :evaluations
   
   validates_inclusion_of :calification1, :in=>0..10, :allow_nil=>true
   validates_inclusion_of :average1, :in=>0..10, :allow_nil=>true
@@ -26,5 +27,9 @@ class SignaturesStudent < ActiveRecord::Base
       signatures = student.find_signatures(year_id)
       errors.add :signature_id, 'El alumno no puede cursar asignaturas de distintas titulaciones en el mismo curso' unless signatures.empty? || signatures.first.degree_id == signature.degree_id
     end
+  end
+
+  def student_name
+    student.name
   end
 end

@@ -1,11 +1,18 @@
 class PartsController < ApplicationController
   before_filter :require_teacher
   before_filter :find_signature_and_ordinary
+  before_filter :ocultar_year_selected
+  before_filter :ocultar_degree_selected
+  before_filter :calcula_migas_part
 
   # GET /parts
   # GET /parts.xml
   def index
-    @parts = @signature.parts.all :conditions=>['ordinary=?',@ordinary]
+    @parts = @signature.parts.all :conditions=>{
+        :ordinary=>@ordinary,
+        :parent_id=>@parent,
+        :year_id=>@year_selected
+      }
 
     respond_to do |format|
       format.html # index.html.erb
@@ -16,8 +23,6 @@ class PartsController < ApplicationController
   # GET /parts/1
   # GET /parts/1.xml
   def show
-    @part = Part.find(params[:id])
-
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @part }
@@ -27,7 +32,8 @@ class PartsController < ApplicationController
   # GET /parts/new
   # GET /parts/new.xml
   def new
-    @part = Part.new
+    @part = @signature.parts.build(:ordinary=>@ordinary, :year=>@year_selected,
+      :parent_id=>(@parent ? @parent.id : nil))
 
     respond_to do |format|
       format.html # new.html.erb
@@ -37,7 +43,6 @@ class PartsController < ApplicationController
 
   # GET /parts/1/edit
   def edit
-    @part = Part.find(params[:id])
   end
 
   # POST /parts
@@ -47,7 +52,7 @@ class PartsController < ApplicationController
 
     respond_to do |format|
       if @part.save
-        format.html { redirect_to(@part, :notice => 'Part was successfully created.') }
+        format.html { redirect_to(signature_part_path(@signature, @part), :notice => 'Bloque creado con éxito.') }
         format.xml  { render :xml => @part, :status => :created, :location => @part }
       else
         format.html { render :action => "new" }
@@ -59,11 +64,9 @@ class PartsController < ApplicationController
   # PUT /parts/1
   # PUT /parts/1.xml
   def update
-    @part = Part.find(params[:id])
-
     respond_to do |format|
       if @part.update_attributes(params[:part])
-        format.html { redirect_to(@part, :notice => 'Part was successfully updated.') }
+        format.html { redirect_to(signature_part_path(@signature, @part), :notice => 'Bloque actualizado con éxito.') }
         format.xml  { head :ok }
       else
         format.html { render :action => "edit" }
@@ -75,18 +78,25 @@ class PartsController < ApplicationController
   # DELETE /parts/1
   # DELETE /parts/1.xml
   def destroy
-    @part = Part.find(params[:id])
-    @part.destroy
+    @part.destroy rescue flash[:notice] = 'No se puede borrar el bloque'
 
     respond_to do |format|
-      format.html { redirect_to(parts_url) }
+      format.html { redirect_to(signature_parts_url(@signature, :ordinary=>@ordinary, :parent_id=>@parent)) }
       format.xml  { head :ok }
     end
   end
 
 protected
   def find_signature_and_ordinary
-     @signature = Signature.find params[:signature_id]
-     @ordinary = params[:ordinary] ? true : false
+    @signature = Signature.find params[:signature_id]
+    if params[:id].present?
+      @part = @signature.parts.find params[:id], :conditions=>{:year_id=>@year_selected}
+      @ordinary = @part.ordinary
+      @parent = @part.parent
+    else
+      @ordinary = params[:ordinary] ? true : false
+      @parent = params[:parent_id] ? @signature.parts.find(params[:parent_id],
+        :conditions=>{:ordinary=>@ordinary}) : nil
+    end
   end
 end

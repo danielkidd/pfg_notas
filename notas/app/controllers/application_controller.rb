@@ -104,4 +104,15 @@ protected
     @ocultar_degree_selected = true
   end
 
+  def calcula_migas_part
+    @migas = []
+    @migas << { signature_part_path(@signature, @part) => @part.description } unless @part.blank?
+    p = @parent
+    while p.present? do
+      @migas << { signature_part_path(@signature, p) => p.description }
+      p = p.parent
+    end
+    @migas << { signature_path(@signature) => @signature.name } unless @signature.blank?
+  end
+
 end

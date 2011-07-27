@@ -8,15 +8,15 @@
 <% @degrees.each do |degree| %>
 <tr class="<%= cycle('impar', 'par') %>">
     <td><%=h degree.name %></td>
-    <td>
-      <%link_to degree ,:class =>"left primary pill button" do%>
+    <td class="botones">
+      <%link_to degree ,:class =>"left pill button" do%>
         <span class="magnifier icon"></span><span>Mostrar</span>
       <%end%>
       <% link_to edit_degree_path(degree), :class=>"middle pill button" do%>
         <span class="pen icon"></span><span>Modificar</span>
       <%end%>
       <%link_to degree ,:confirm => '¿Estás seguro?', :method => :delete ,:class =>"right negative pill button" do%>
-        <span class="cross icon"></span><span>Eliminar</span>
+        <span class="trash icon"></span><span>Eliminar</span>
       <%end%>
     </td>
   </tr>
@@ -25,7 +25,7 @@
 
 <br />
 <% if current_user.is_a? Administrator %>
-  <%link_to new_degree_path ,:class=>"button" do%>
+  <%link_to new_degree_path ,:class=>"pill button" do%>
     <span class="plus icon"></span><span>Nueva titulación</span>
   <%end%>
 <%end%>

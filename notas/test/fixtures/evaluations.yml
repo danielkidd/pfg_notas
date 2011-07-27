@@ -1,0 +1,11 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  calification: 9.99
+  exam_id: 1
+  signatures_student_id: 1
+
+two:
+  calification: 9.99
+  exam_id: 1
+  signatures_student_id: 1

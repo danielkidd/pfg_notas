@@ -2,7 +2,7 @@ class CreateParts < ActiveRecord::Migration
   def self.up
     create_table :parts do |t|
       t.text :description
-      t.decimal :weighted, :precision => 5, :scale => 2
+        t.decimal :weighted, :precision => 5, :scale => 2
       t.integer :parent_id
       t.decimal :min_compensable, :precision => 4, :scale => 2
       t.boolean :ordinary

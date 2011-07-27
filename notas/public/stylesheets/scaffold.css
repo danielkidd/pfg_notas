@@ -64,14 +64,17 @@ div.pagina, p, ol, ul, td,.contacto {
 p { padding-left: 0; padding-right: 0; }
 
 pre {
-  background-color: #eee;
-  padding: 10px;
-  font-size: 11px;
+  font-family: inherit;
 }
-
+/*
 a { color: #000; }
 a:visited { color: #666; }
 a:hover { color: #fff; background-color:#000; }
+*/
+
+.error {
+  color: red;
+}
 
 .fieldWithErrors {
   padding: 2px;
@@ -128,12 +131,12 @@ h4.pie {
 
 tr.impar { background-color: #E8EBF0; }
 tr.par { background-color:ghostwhite; }
-tr.impar td, tr.par td { padding: 4px 5px; }
+td, th { padding: 4px 5px; }
+td.botones { background-color: #FFFFFF; text-align: right; }
 
+button { vertical-align: baseline !important; }
 
-
-
-
+textarea { width: 350px; height: 50px; }
 
 
 
@@ -196,4 +199,21 @@ border-top : none;
 clear : both;
 margin : 0px;
 padding : 15px;
-} 
+}
+
+.num { text-align: right; }
+p.correcto{color: green; text-align: right; }
+
+ul.migas {
+    margin: 0;
+    padding: 19px 0;
+    display: block;
+    clear: both;
+    width: 100%;
+}
+
+ul.migas li {
+    display: inline;
+    list-style-type : none;
+    padding: 0 3px;
+}

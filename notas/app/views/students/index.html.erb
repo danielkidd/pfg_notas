@@ -15,12 +15,17 @@
     <td><%=h student.name %></td>
     <td><%=h student.expedient %></td>
 
-    <td><%link_to student ,:class =>"left primary pill button" do%>
+    <td class="botones">
+  <%unless (current_user.is_a? Administrator)%>
+      <%link_to student ,:class =>"pill button" do%>
       <span class="magnifier icon"></span><span>Mostrar</span>
     <%end%>
-    
+      <%end%>
 
     <% if (current_user.is_a? Administrator) %>
+       <%link_to student ,:class =>"left pill button" do%>
+      <span class="magnifier icon"></span><span>Mostrar</span>
+    <%end%>
     <%  link_to edit_student_path(student), :class=>"middle pill button" do%>
       <span class="pen icon"></span><span>Modificar</span>
     <%end%>
@@ -28,7 +33,7 @@
 
     <% if (current_user.is_a? Administrator)%>
     <%link_to student ,:confirm => '¿Estás seguro?', :method => :delete ,:class =>"right negative pill button" do%>
-      <span class="cross icon"></span><span>Eliminar</span>
+      <span class="trash icon"></span><span>Eliminar</span>
     <%end%>
     </td>
     <%end%>
@@ -38,7 +43,7 @@
 
 <br />
 <% if current_user.is_a? Administrator %>
-  <%link_to new_student_path ,:class=>"button" do%>
+  <%link_to new_student_path ,:class=>"pill button" do%>
     <span class="user icon"></span><span>Nuevo alumno</span>
   <%end%>
 <%end%>

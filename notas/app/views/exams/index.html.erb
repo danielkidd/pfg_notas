@@ -1,0 +1,35 @@
+<h1>Datos de los Examenes pertenecientes al bloque: <%=truncate h(@part.description)%></h1>
+
+<table>
+  <tr>
+    <th>Fecha:</th>
+    <th>Part</th>
+  </tr>
+
+<% @exams.each do |exam| %>
+  <tr class="<%= cycle('impar', 'par') %>">
+    <td><%=h exam.date %></td>
+    <td><%=truncate h(exam.part.description) %></td>
+     <td class="botones">
+      <%link_to signature_part_exam_path(@signature, @part, exam) ,:class =>"left pill button" do%>
+        <span class="magnifier icon"></span><span>Mostrar</span>
+      <%end%>
+      <% link_to edit_signature_part_exam_path(@signature, @part, exam), :class=>"middle pill button" do%>
+        <span class="pen icon"></span><span>Modificar</span>
+      <%end%>
+      <%link_to signature_part_exam_path(@signature, @part, exam) ,:confirm => '¿Estás seguro?', :method => :delete ,:class =>"right negative pill button" do%>
+        <span class="trash icon"></span><span>Eliminar</span>
+      <%end%>
+    </td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<% link_to new_signature_part_exam_path(@signature, @part), :class=>"left pill button" do %>
+  <span class="plus icon"></span><span>Nuevo Examen</span>
+<% end %>
+<% link_to signature_part_path(@signature, @part), :class=>"right pill button" do%>
+  <span class="home icon"></span><span>Volver al Bloque: <%=truncate h(@part.description)%></span>
+<% end %>
