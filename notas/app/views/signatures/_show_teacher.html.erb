@@ -5,10 +5,10 @@
     <th>E-mail</th>
     <th></th>
   </tr>
-<% @signature.signatures_teachers.find(:all, :conditions=>['year_id=?',@year_selected]).each do |signature_teacher| %>
+<% @signature.teachers.find(:all, :conditions=>['year_id=?',@year_selected]).each do |teacher| %>
   <tr class="<%= cycle('par','impar') %>">
-    <td><%=h signature_teacher.teacher.name %></td>
-    <td><%=h signature_teacher.teacher.email %></td>
+    <td><%=h teacher.name %></td>
+    <td><%=h teacher.email %></td>
   </tr>
 <% end %>
 </table>

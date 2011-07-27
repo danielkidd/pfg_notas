@@ -5,14 +5,14 @@
     <th>E-mail</th>
     <th></th>
   </tr>
-<% @signature.signatures_teachers.find(:all, :conditions=>['year_id=?',@year_selected]).each do |signatures_teacher| %>
+<% @signature.teachers.find(:all, :conditions=>['year_id=?',@year_selected]).each do |teacher| %>
   <tr class="<%= cycle('par','impar') %>">
-    <td><%=h signatures_teacher.teacher.name %></td>
-    <td><%=h signatures_teacher.teacher.email %></td>
+    <td><%=h teacher.name %></td>
+    <td><%=h teacher.email %></td>
     <td class="botones">
       <%= link_to '<span class="cross icon"></span><span>Eliminar asignación</span>',
           {:action=>'destroy_teacher', :id=>@signature,
-          :year_id=>@year_selected.id, :teacher_id=>signatures_teacher.teacher_id},
+          :year_id=>@year_selected.id, :teacher_id=>teacher.teacher_id},
           :confirm => '¿Estás seguro?', :method => :delete ,
           :class=>"negative pill button" %>
     </td>
@@ -45,15 +45,15 @@
     <th></th>
   </tr>
 
- <% @signature.signatures_students.find(:all, :conditions=>['year_id=?',@year_selected]).each do |signatures_student| %>
+ <% @signature.students.find(:all, :conditions=>['year_id=?',@year_selected]).each do |student| %>
     <tr class="<%= cycle('impar', 'par') %>">
-      <td><%=h signatures_student.student.name %></td>
-      <td><%=h signatures_student.student.expedient %></td>
-      <td><%= signatures_student.ordinary ? 'Ordinaria' : 'Extraordinaria' %></td>
+      <td><%=h student.name %></td>
+      <td><%=h student.expedient %></td>
+      <td><%=h student.ordinary ? 'Ordinaria' : 'Extraordinaria' %></td>
       <td class="botones">
         <%= link_to '<span class="cross icon"></span><span>Eliminar matricula</span>',
             {:action=>'destroy_student', :id=>@signature,
-            :year_id=>@year_selected.id, :student_id=>signatures_student.student_id},
+            :year_id=>@year_selected.id, :student_id=>student.student_id},
             :confirm => '¿Estás seguro?', :method => :delete ,
             :class=>"negative pill button" %>
     </td>
