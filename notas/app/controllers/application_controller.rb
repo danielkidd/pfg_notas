@@ -83,12 +83,20 @@ protected
 
   def find_year
     @current_year = Year.current
-    @year_selected = session[:year_selected] || @current_year
+    if session[:year_selected].present?
+      @year_selected = Year.find session[:year_selected]
+    else
+      @year_selected = @current_year
+    end
   end
 
   def find_degree
     unless current_user.is_a? Student
-      @degree_selected = session[:degree_selected] || Degree.find(:first)
+      if session[:degree_selected].present?
+        @degree_selected = Degree.find session[:degree_selected]
+      else
+        @degree_selected = Degree.find :first
+      end
       unless @degree_selected.present?
         flash[:notice] = 'Debe crear al menos una titulación'
         redirect_to new_degree_path

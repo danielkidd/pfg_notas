@@ -1,7 +1,7 @@
 class Part < ActiveRecord::Base
   belongs_to :signature
   belongs_to :year
-  has_many :exams
+  has_many :exams, :dependent => :destroy
   acts_as_tree
 
   validates_presence_of     :signature_id

@@ -14,7 +14,8 @@ class HomeController < ApplicationController
   end
 
   def change_year
-    @year_selected = session[:year_selected] = Year.find(params[:id])
+    @year_selected = Year.find(params[:id])
+    session[:year_selected] = @year_selected.id
 
     respond_to do |format|
       format.html { redirect_to(params[:url]) }
@@ -22,7 +23,8 @@ class HomeController < ApplicationController
   end
 
   def change_degree
-    @degree_selected = session[:degree_selected] = Degree.find(params[:id])
+    @degree_selected = Degree.find(params[:id])
+    session[:degree_selected] = @degree_selected.id
 
     respond_to do |format|
       format.html { redirect_to(params[:url]) }

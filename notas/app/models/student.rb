@@ -1,5 +1,5 @@
 class Student < User
-  has_many :signatures_students
+  has_many :signatures_students, :dependent => :destroy
 
   validates_presence_of     :expedient
   validates_length_of       :expedient,    :within => 5..40
@@ -12,23 +12,23 @@ class Student < User
   end
 
   def find_signatures(year_id)
-    Signature.find :all,
+    Signature.find :all, :select=>'DISTINCT signatures.*',
       :conditions=>['year_id=? AND student_id=?',year_id, self.id],
       :joins=>'INNER JOIN signatures_students ON signature_id=signatures.id'
   end
 
   def find_signature(signature_id, year_id)
-    Signature.find signature_id,
+    Signature.find signature_id, :select=>'DISTINCT signatures.*',
       :conditions=>['year_id=? AND student_id=?',year_id, self.id],
       :joins=>'INNER JOIN signatures_students ON signature_id=signatures.id'
   end
 
   def self.search(year_id, degree_id)
-    find :all,
-      :conditions=>['year_id=? AND degree_id=?', year_id, degree_id],
+    find :all, :select=>'DISTINCT users.*', :order=>'year_id, name',
+      :conditions=>['(year_id=? OR year_id IS NULL) AND (degree_id=? OR degree_id IS NULL)', year_id, degree_id],
       :joins=>[
-        'INNER JOIN signatures_students ON student_id=users.id',
-        'INNER JOIN signatures ON signature_id=signatures.id'
+        'LEFT JOIN signatures_students ON student_id=users.id',
+        'LEFT JOIN signatures ON signature_id=signatures.id'
         ]
   end
 

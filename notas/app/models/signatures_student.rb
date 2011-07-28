@@ -29,6 +29,11 @@ class SignaturesStudent < ActiveRecord::Base
     end
   end
 
+  before_destroy :comprueba_dependencias
+  def comprueba_dependencias
+    raise 'No se puede borrar esta matrícula' unless evaluations.blank?
+  end
+
   def student_name
     student.name
   end
