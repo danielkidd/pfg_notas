@@ -31,6 +31,9 @@ class ExamsController < ApplicationController
   # GET /exams/new.xml
   def new
     @exam = @part.exams.build
+    @exam.new_signatures_students.each do |signatures_student|
+      @exam.evaluations.build(:signatures_student=>signatures_student)
+    end
 
     respond_to do |format|
       format.html # new.html.erb

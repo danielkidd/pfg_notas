@@ -1,0 +1,16 @@
+<tr>
+  <td>
+    <%= f.label :signatures_student_id, 'Alumno' %><br />
+    <%= f.hidden_field :signatures_student_id %>
+    <%= text_field_tag :student_name, f.object.signatures_student.student_name,
+      :disabled=>true, :class=>'normal' %>
+  </td>
+  <td>
+    <%= f.label :calification, 'Calificación' %><br />
+    <%= f.text_field :calification, :class=>'num very_small' %>
+  </td>
+  <td>
+    <%= f.label :_destroy, 'No Presentado' %>
+    <%= f.check_box :_destroy %>
+  </td>
+</tr>

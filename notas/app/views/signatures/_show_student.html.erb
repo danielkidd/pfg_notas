@@ -5,10 +5,10 @@
     <th>E-mail</th>
     <th></th>
   </tr>
-<% @signature.signatures_teachers.find(:all, :conditions=>['year_id=?',@year_selected]).each do |signature_teacher| %>
+<% @signature.teachers.find(:all, :conditions=>['year_id=?',@year_selected]).each do |teacher| %>
   <tr class="<%= cycle('par','impar') %>">
-    <td><%=h signature_teacher.teacher.name %></td>
-    <td><%=h signature_teacher.teacher.email %></td>
+    <td><%=h teacher.name %></td>
+    <td><%=h teacher.email %></td>
   </tr>
 <% end %>
 </table>
@@ -16,5 +16,24 @@
 <br />
 <br />
 <br />
+
+<table>
+  <tr>
+    <th>Descripción</th>
+    <th>Ponderación</th>
+    <th>Mínimo compensable</th>
+  </tr>
+
+<%@signature.parts.each do |part|%>
+  <%#if part.parent_id == nil%>
+    <tr class="<%= cycle('impar', 'par') %>">
+
+  <td><%= truncate h(part.description) %></td>
+    <td class="num"><%=h part.weighted %></td>
+    <td class="num"><%=h part.min_compensable %></td>
+    </tr>
+    <%#end%>
+    <% end %>
+</table>
 
 Notas parciales...

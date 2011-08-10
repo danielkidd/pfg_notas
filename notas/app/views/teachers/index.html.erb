@@ -1,3 +1,4 @@
+<br/>
 <h1>Listado de Profesores</h1>
 
 <table>
@@ -14,27 +15,22 @@
     <td><%=h teacher.name %></td>
     <td class="botones">
 
-        <%if (current_user==teacher) || (current_user.is_a? Administrator)%>
+        <%if (current_user.is_a? Administrator)%>
           <%link_to teacher ,:class =>"left pill button" do%>
         <span class="magnifier icon"></span><span>Mostrar</span>
           <%end%>
+         <%link_to teacher, :confirm => '¿Estás seguro?', :method => :delete ,
+          :class =>"right negative pill button" do %>
+        <span class="trash icon"></span><span>Eliminar</span>
+        <%end%>
       <%else%>
         <%link_to teacher ,:class =>"pill button" do%>
         <span class="magnifier icon"></span><span>Mostrar</span>
       <%end%>
         <%end%>
-      <% if current_user.is_a? Administrator %>
-        <%  link_to edit_teacher_path(teacher), :class=>"middle pill button" do%>
-          <span class="pen icon"></span><span>Modificar</span>
-        <%end%>
-      <% elsif current_user==teacher %>
-        <%  link_to edit_teacher_path(teacher), :class=>"right pill button" do%>
-          <span class="key icon"></span><span>Cambiar contraseña</span>
-        <%end%>
-      <%end%>
-        <%= link_to '<span class="trash icon"></span><span>Eliminar</span>',
-          teacher, :confirm => '¿Estás seguro?', :method => :delete ,
-          :class =>"right negative pill button" if current_user.is_a? Administrator %>
+      
+     
+       
     </td>
   </tr>
 <% end %>

@@ -37,4 +37,28 @@ class SignaturesStudent < ActiveRecord::Base
   def student_name
     student.name
   end
+
+  def self.int_ordinaries
+    { 1 => 'Ordinaria',
+      2 => 'Extraordinaria solo Febrero',
+      3 => 'Extraordinaria solo Septiembre',
+      4 => 'Extraordinaria Febrero y Septiembre' }
+  end
+
+  def info_ordinary
+    self.class.int_ordinaries[int_ordinary]
+  end
+
+  def int_ordinary
+    return 1 if ordinary
+    return 2 unless enabled2
+    return 3 unless enabled1
+    4 # enabled1 && enabled2
+  end
+
+  def int_ordinary=(int_ord)
+    self.ordinary = (int_ord.to_s=='1')
+    self.enabled1 = (int_ord.to_s!='3')
+    self.enabled2 = (int_ord.to_s!='2')
+  end
 end

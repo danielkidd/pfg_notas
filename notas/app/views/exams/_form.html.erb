@@ -3,10 +3,19 @@
 
   <%= f.error_messages %>
 
-  <p>
+  <h3>
     <%= f.label :fecha %><br />
     <%= f.date_select :date %>
-  </p>
+  </h3>
+
+  <h3>Calificacion de los alumnos</h3>
+
+  <table>
+  <% f.fields_for :evaluations do |builder| %>
+    <%= render 'evaluations/fields', :f => builder %>
+  <% end %>
+  </table>
+
   <p>
     <button class="pill button"><span class="check icon"></span>Guardar</button>
   </p>

@@ -1,3 +1,4 @@
+<br/>
 <h1>Bloques por <%= @ordinary ? 'ordinaria' : 'extraordinaria' %> de la asignatura: <%= @signature.name %></h1>
 <h2>
   <% if @parent %>
@@ -20,6 +21,7 @@
 <% suma=0 -%>
 <% @parts.each do |part| suma+=part.weighted -%>
   <tr class="<%= cycle('impar', 'par') %>">
+
     <td><%= truncate h(part.description) %></td>
     <td class="num"><%=h part.weighted %></td>
     <td class="num"><%=h part.min_compensable %></td>
@@ -44,7 +46,7 @@
   <tr>
     <th>Total:</th>
     <th class="num"><%if suma==100%><p class="correcto"><%= suma %></p><%else%><%=suma%><%end%></th>
-    <th colspan="2" class="error"><%= 'Error: La suma de ponderaciones debe sumar 100.' unless suma==100 %></th>
+    <th colspan="2" class="error"><%= 'Aviso: La suma de ponderaciones no suma 100.' unless suma==100 %></th>
   </tr>
 <% end -%>
 </table>

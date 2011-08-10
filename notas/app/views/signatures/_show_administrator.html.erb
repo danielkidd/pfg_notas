@@ -45,20 +45,22 @@
     <th></th>
   </tr>
 
- <% @signature.students.find(:all, :conditions=>['year_id=?',@year_selected]).each do |student| %>
+ <% @signature.signatures_students.find(:all, :conditions=>['year_id=?',@year_selected]).each do |signatures_student| %>
+  <% unless signatures_student.new_record? %>
     <tr class="<%= cycle('impar', 'par') %>">
-      <td><%=h student.name %></td>
-      <td><%=h student.expedient %></td>
-      <td><%=h student.ordinary ? 'Ordinaria' : 'Extraordinaria' %></td>
+      <td><%=h signatures_student.student.name %></td>
+      <td><%=h signatures_student.student.expedient %></td>
+      <td><%=h signatures_student.info_ordinary %></td>
       <td class="botones">
         <%= link_to '<span class="cross icon"></span><span>Eliminar matricula</span>',
             {:action=>'destroy_student', :id=>@signature,
-            :year_id=>@year_selected.id, :student_id=>student.student_id},
+            :year_id=>@year_selected.id, :student_id=>signatures_student.student_id},
             :confirm => '¿Estás seguro?', :method => :delete ,
             :class=>"negative pill button" %>
-    </td>
+      </td>
     </tr>
   <% end %>
+<% end %>
 </table>
 
 <% @signatures_student ||= @signature.signatures_students.build %>
@@ -68,7 +70,7 @@
   <p>
     <%= f.label :student_id, 'Alumno' %><br />
     <%= f.collection_select :student_id, new_students, :id, :name, :prompt => 'Seleccionar alumno' %>
-    <%= f.select :ordinary, options_for_select({'Ordinaria'=>true, 'Extraordinaria'=>false}, @signatures_student.ordinary) %>
+    <%= f.select :int_ordinary, options_for_select(SignaturesStudent.int_ordinaries.invert, @signatures_student.int_ordinary) %>
     <%= f.hidden_field :year_id, :value=>@year_selected.id %>
 
    <button class="pill button"><span class="plus icon"></span>Matricular</button>

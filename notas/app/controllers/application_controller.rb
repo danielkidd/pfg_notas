@@ -94,9 +94,13 @@ protected
     unless current_user.is_a? Student
       if session[:degree_selected].present?
         @degree_selected = Degree.find session[:degree_selected]
-      else
-        @degree_selected = Degree.find :first
+      elsif current_user.is_a? Teacher
+        @degree_selected = Degree.find :first, :select=>'DISTINCT degrees.*',
+          :joins => ['INNER JOIN signatures ON signatures.degree_id=degrees.id',
+          'INNER JOIN signatures_teachers ON signatures_teachers.signature_id=signatures.id'],
+          :conditions => ['signatures_teachers.teacher_id=?',current_user.id]
       end
+      @degree_selected = Degree.find :first unless @degree_selected.present?
       unless @degree_selected.present?
         flash[:notice] = 'Debe crear al menos una titulación'
         redirect_to new_degree_path

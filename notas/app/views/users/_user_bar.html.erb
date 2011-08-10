@@ -29,8 +29,11 @@
     <% unless current_user.is_a? Student -%>
       <li id="nav-3"><%= link_to 'Estudiantes', students_path %></li>
     <% else -%>
-      <li id="nav-6"><%= link_to 'Datos Alumno', current_user %></li>
+      <li id="nav-7"><%= link_to 'Datos Alumno', current_user %></li>
     <% end -%>
+    <% if current_user.is_a? Teacher -%>
+      <li id="nav-6"><%= link_to 'Datos Profesor', current_user %></li>
+    <%end%>
     <% if current_user.is_a? Administrator -%>
       <li id="nav-4"><%= link_to 'Cursos', years_path %></li>
       <li id="nav-5"><%= link_to 'Titulaciones', degrees_path %></li>

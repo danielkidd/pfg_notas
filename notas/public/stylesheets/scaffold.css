@@ -217,3 +217,8 @@ ul.migas li {
     list-style-type : none;
     padding: 0 3px;
 }
+
+input.very_small    { width:  80px; }
+input.small         { width: 150px; }
+input.normal        { width: 250px; }
+input.big           { width: 400px; }

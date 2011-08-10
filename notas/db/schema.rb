@@ -18,7 +18,7 @@ ActiveRecord::Schema.define(:version => 20110726091717) do
   end
 
   create_table "evaluations", :force => true do |t|
-    t.integer  "calification",          :limit => 10, :precision => 10, :scale => 0
+    t.decimal  "calification",          :precision => 4, :scale => 2
     t.integer  "exam_id"
     t.integer  "signatures_student_id"
     t.datetime "created_at"
@@ -60,6 +60,8 @@ ActiveRecord::Schema.define(:version => 20110726091717) do
     t.decimal "average2",      :precision => 4, :scale => 2
     t.integer "calification2"
     t.boolean "ordinary"
+    t.boolean "enabled1",                                    :default => true
+    t.boolean "enabled2",                                    :default => true
   end
 
   create_table "signatures_teachers", :force => true do |t|
