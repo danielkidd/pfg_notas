@@ -1,3 +1,32 @@
+<% signatures_student = current_user.signatures_students.find :first,
+  :conditions=>{:signature_id=>@signature} -%>
+<table class="nota">
+  <tr>
+    <th></th>
+    <% if  signatures_student.calification2 || signatures_student.calification1 %>
+      <th>Notas <%= @year_selected.to_s%></th>
+    <% end %>
+  </tr>
+  <tr>
+  <% if  signatures_student.calification1 && signatures_student.calification1 > 5 %>
+    <td  class="convocatoria">Convocatoria 1</td>
+    <td class="nota1 aprobado"><%=h signatures_student.calification1%></td>
+  <%  elsif signatures_student.calification1  && signatures_student.calification1 < 5%>
+    <td class="convocatoria">Convocatoria 1</td>
+    <td class="nota1 suspenso"><%=h signatures_student.calification1%></td>
+  <% end %>
+    </tr>
+  <tr>
+  <% if signatures_student.calification2  && signatures_student.calification2 > 5  %>
+    <td  class="convocatoria">Convocatoria 2</td>
+    <td class="nota2 aprobado"> <%=h signatures_student.calification2%></td>
+
+  <%  elsif signatures_student.calification2  && signatures_student.calification2 < 5%>
+    <td class="convocatoria">Convocatoria 2</td>
+    <td class="nota2 suspenso"><%=h signatures_student.calification2%></td>
+  <% end %>
+</tr>
+</table>
 <h2>Profesores que imparten esta asignatura en el curso <%= @year_selected.to_s %>:</h2>
 <table>
   <tr>
@@ -8,7 +37,7 @@
 <% @signature.teachers.find(:all, :conditions=>['year_id=?',@year_selected]).each do |teacher| %>
   <tr class="<%= cycle('par','impar') %>">
     <td><%=h teacher.name %></td>
-    <td><%=h teacher.email %></td>
+    <td><%=link_to teacher.email, "mailto:#{teacher.email}" %></td>
   </tr>
 <% end %>
 </table>
@@ -17,23 +46,16 @@
 <br />
 <br />
 
-<table>
-  <tr>
-    <th>Descripción</th>
-    <th>Ponderación</th>
-    <th>Mínimo compensable</th>
-  </tr>
-
-<%@signature.parts.each do |part|%>
-  <%#if part.parent_id == nil%>
-    <tr class="<%= cycle('impar', 'par') %>">
-
-  <td><%= truncate h(part.description) %></td>
-    <td class="num"><%=h part.weighted %></td>
-    <td class="num"><%=h part.min_compensable %></td>
-    </tr>
-    <%#end%>
-    <% end %>
-</table>
-
-Notas parciales...
+<div class="row header">
+  <div class="column big">Descripción</div>
+  <div class="column small">Mínimo compensable</div>
+  <div class="column small">Ponderación</div>
+  <div class="column small">Fecha</div>
+  <div class="column small">Nota</div>
+</div>
+<% parts = @signature.parts.all(:conditions=>{:parent_id=>nil,
+    :ordinary=>signatures_student.ordinary}) -%>
+<% parts.each do |part| -%>
+  <%= render :partial => 'parts/show_student', :locals=>{:part=>part} %>
+<% end -%>
+<div class="salto"></div>

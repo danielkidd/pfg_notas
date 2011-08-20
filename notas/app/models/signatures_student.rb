@@ -12,6 +12,8 @@ class SignaturesStudent < ActiveRecord::Base
   validates_presence_of :signature_id
   validates_presence_of :year_id
 
+  validates_uniqueness_of :student_id, :scope=>[:year_id, :signature_id]
+
   validate_on_create :comprueba_extraordinaria
   def comprueba_extraordinaria
     unless ordinary

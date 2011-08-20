@@ -1,0 +1,19 @@
+<% level ||= 0 -%>
+<% evaluation = part.last_evaluation(current_user) -%>
+
+<div class="row <%= cycle('par','impar') %>">
+  <div class="column big">
+    <% level.downto(0) do -%>
+      &gt;
+    <% end -%>
+    <%= truncate h(part.description) %>
+  </div>
+  <div class="column small num"><%= part.min_compensable %></div>
+  <div class="column small num"><%= part.weighted %></div>
+  <div class="column small num"><%= evaluation.exam.date unless evaluation.blank? %></div>
+  <div class="column small num"><%= evaluation.calification unless evaluation.blank? %></div>
+</div>
+
+<% part.children.each do |child| -%>
+  <%= render :partial=>'parts/show_student', :locals=>{:part=>child, :level=>level+1} %>
+<% end -%>

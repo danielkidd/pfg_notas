@@ -1,5 +1,6 @@
 class SignaturesController < ApplicationController
-  before_filter :require_administrator, :except=>[:index, :show]
+  before_filter :require_administrator, :except=>[:index, :show, :calcular_medias]
+  before_filter :require_teacher, :only=>[:calcular_medias]
   # GET /signatures
   # GET /signatures.xml
   def index
@@ -100,6 +101,19 @@ class SignaturesController < ApplicationController
   def create_student
     @signature = Signature.find(params[:id])
     @signatures_student = @signature.signatures_students.build(params[:signatures_student])
+    # si lo matriculas por ordinaria septiembre
+    if (!@signatures_student.ordinary) && @signatures_student.enabled2
+      matricula = @signature.signatures_students.find :first, :conditions=> {
+          :year_id=>@signatures_student.year_id,
+          :student_id=>@signatures_student.student_id,
+          :ordinary=>false,
+          :enabled2=>false
+        } # buscamos la matricula extraordinaria febrero
+      if matricula.present?
+        matricula.enabled2 = true
+        @signatures_student = matricula
+      end
+    end
 
     respond_to do |format|
       if @signatures_student.save
@@ -156,5 +170,20 @@ class SignaturesController < ApplicationController
       format.xml  { head :ok }
     end
   end
- 
+
+  # GET /signatures/calcular_medias/1
+  # GET /signatures/calcular_medias/1.xml
+  def calcular_medias
+    @signature = Signature.find(params[:id])
+    ordinary = (params[:ordinary] == 'true')
+    conv = params[:conv].to_i
+    year_id = params[:year_id].to_i
+    @signature.calcular_medias(ordinary, conv, year_id)
+
+    respond_to do |format|
+      format.html { redirect_to(@signature) }
+      format.xml  { head :ok }
+    end
+  end
+
 end

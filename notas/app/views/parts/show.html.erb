@@ -47,13 +47,13 @@
        <td><%=h exam.date %></td>
        <td class="botones">
         <%link_to signature_part_exam_path(@signature, @part, exam) ,:class =>"left pill button" do%>
-          <span class="magnifier icon"></span><span>Mostrar</span>
+          <span class="magnifier icon"></span><span>Mostrar Examen</span>
         <%end%>
         <% link_to edit_signature_part_exam_path(@signature, @part, exam), :class=>"middle pill button" do%>
-          <span class="pen icon"></span><span>Modificar</span>
+          <span class="pen icon"></span><span>Modificar Examen</span>
         <%end%>
         <%link_to signature_part_exam_path(@signature, @part, exam) ,:confirm => '¿Estás seguro?', :method => :delete ,:class =>"right negative pill button" do%>
-          <span class="trash icon"></span><span>Eliminar</span>
+          <span class="trash icon"></span><span>Eliminar Examen</span>
         <%end%>
       </td>
     </tr>

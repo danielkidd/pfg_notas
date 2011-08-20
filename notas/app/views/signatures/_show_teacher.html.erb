@@ -17,6 +17,51 @@
 <br />
 <br />
 
+<h2>Alumnos matriculados en la asignatura en el curso <%= @year_selected.to_s %>:</h2>
+<table>
+  <tr>
+    <th>Nombre</th>
+    <th>Expediente</th>
+    <th>Tipo matrícula</th>
+    <th>Media Convocatoria 1</th>
+    <th>Nota Convocatoria 1</th>
+    <th>Media Convocatoria 2</th>
+    <th>Nota Convocatoria 2</th>
+  </tr>
+
+ <% @signature.signatures_students.find(:all, :conditions=>['year_id=?',@year_selected]).each do |signatures_student| %>
+    <tr class="<%= cycle('impar', 'par') %>">
+      <td><%=h signatures_student.student.name %></td>
+      <td><%=h signatures_student.student.expedient %></td>
+      <td><%=h signatures_student.info_ordinary %></td>
+      <td class="num"><%=h signatures_student.average1 %></td>
+      <td class="num"><%=h signatures_student.calification1 %></td>
+      <td class="num"><%=h signatures_student.average2 %></td>
+      <td class="num"><%=h signatures_student.calification2 %></td>
+    </tr>
+<% end %>
+</table>
+
+<br />
+<br />
+
+<% link_to url_for({:action=>'calcular_medias', :id=>@signature, :year_id=>@year_selected, :ordinary=>true, :conv=>1}), :class=>"left pill button" do%>
+  <span class="check icon"></span><span>Calcular medias convocatoria 1 por ordinaria</span>
+<%end%>
+<% link_to url_for({:action=>'calcular_medias', :id=>@signature, :year_id=>@year_selected, :ordinary=>true, :conv=>2}), :class=>"middle pill button" do%>
+  <span class="check icon"></span><span>Calcular medias convocatoria 2 por ordinaria</span>
+<%end%>
+<% link_to url_for({:action=>'calcular_medias', :id=>@signature, :year_id=>@year_selected, :ordinary=>false, :conv=>1}), :class=>"middle pill button" do %>
+  <span class="check icon"></span><span>Calcular medias convocatoria 1 por extraordinaria</span>
+<%end%>
+<% link_to url_for({:action=>'calcular_medias', :id=>@signature, :year_id=>@year_selected, :ordinary=>false, :conv=>2}), :class=>"right pill button" do%>
+  <span class="check icon"></span><span>Calcular medias convocatoria 2 por extraordinaria</span>
+<%end%>
+
+<br />
+<br />
+<br />
+
 <% link_to  signature_parts_path(@signature, :ordinary=>true), :class=>"left pill button" do%>
   <span class="book icon"></span><span>Bloques ordinaria</span>
 <%end%>

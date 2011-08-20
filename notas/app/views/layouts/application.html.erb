@@ -11,10 +11,8 @@
 <body>
     <div class="pagina">
       <h1 class="cabecera">
-        <a href="http://localhost:3000">
-          <img alt="logo" title="logo UPSA" src="/images/logo-universidad-pontificia-salamanca-bis.gif"/>
-        </a>
-      Gestor de notas para el curso <%= @year_selected.to_s %>
+        <a href="http://localhost:3000"><img alt="logo" title="logo UPSA" src="/images/logo-universidad-pontificia-salamanca-bis.gif"/></a>
+        Gestor de notas para el curso <%= @year_selected.to_s %>
       </h1>
 
     <%= render 'users/user_bar' %>
@@ -24,8 +22,10 @@
 
     <%= yield %>
       <div class="contacto">
-     <h4>Paloma Vicente Bonafonte 57640 pvicentebo@hotmail.com<br/>
-                    Daniel Martín Martín 58102 danielkidd001@hotmail.com</h4>
+      <h4>
+        Paloma Vicente Bonafonte 57640 pvicentebo@hotmail.com<br/>
+        Daniel Martín Martín 58102 danielkidd001@hotmail.com
+      </h4>
   </div>
   </div>
 

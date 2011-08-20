@@ -4,6 +4,8 @@ body {
     background-color: white;
 }
 
+a img { border: none; }
+
 div.pagina {
     display: block;
     float: none;
@@ -129,8 +131,8 @@ h4.pie {
 .flash.notice { color: green; }
 .flash.error { color: red; }
 
-tr.impar { background-color: #E8EBF0; }
-tr.par { background-color:ghostwhite; }
+.impar { background-color: #E8EBF0; }
+.par { background-color:ghostwhite; }
 td, th { padding: 4px 5px; }
 td.botones { background-color: #FFFFFF; text-align: right; }
 
@@ -202,7 +204,10 @@ padding : 15px;
 }
 
 .num { text-align: right; }
-p.correcto{color: green; text-align: right; }
+.correcto{color: green; text-align: right; }
+.incorrecto{color: red; text-align: right; }
+.aprobado{background-color: greenyellow; text-align: right; }
+.suspenso{background-color: red; text-align: right; }
 
 ul.migas {
     margin: 0;
@@ -222,3 +227,51 @@ input.very_small    { width:  80px; }
 input.small         { width: 150px; }
 input.normal        { width: 250px; }
 input.big           { width: 400px; }
+
+.column.very_small    { width:  80px; }
+.column.small         { width: 150px; }
+.column.normal        { width: 250px; }
+.column.big           { width: 400px; }
+
+.row {
+    width: auto;
+    min-height: 1em;
+    display: block;
+    float: left;
+    clear: both;
+}
+.row.header { font-weight: bold; text-align: center; }
+
+.column {
+    display: block;
+    float: left;
+    margin: 1px;
+    padding: 4px 5px;
+}
+
+div.salto { float: none; clear: both; width: 100%; display: block; height: 0; }
+.nota1{
+    border-style: solid;
+      text-align: center;
+    font-size: x-large;
+    font-family: sans-serif;
+}
+.nota{
+    font-size: x-large;
+    font-family: sans-serif;
+    text-align: center;
+    top: 300px;
+    right: 200px;
+    position: absolute;
+}
+.nota2{
+    border-style: solid;
+    text-align: center;
+    font-size: x-large;
+    font-family: sans-serif;
+}
+.convocatoria{
+    text-align: center;
+    font-size: x-large;
+    font-family: sans-serif;
+}

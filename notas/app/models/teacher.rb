@@ -11,6 +11,8 @@ class Teacher < User
     Signature.find signature_id, :select=>'DISTINCT signatures.*',
       :conditions=>['year_id=? AND degree_id=? AND teacher_id=?',year_id, degree_id, self.id],
       :joins=>'INNER JOIN signatures_teachers ON signature_id=signatures.id'
+  rescue
+    raise 'Acceso no permitido'
   end
 
   def self.search(year_id, degree_id)

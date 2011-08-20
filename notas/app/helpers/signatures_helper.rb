@@ -1,7 +1,7 @@
 module SignaturesHelper
 
-  def new_students # alumnos que aun no tienen esa asignatura
-    signatures_students = @signature.signatures_students.find(:all, :conditions=>['year_id=?',@year_selected.id])
+  def new_students # alumnos que aun no tienen esa asignatura o solo la tienen por extraordinaria febrero (enabled2==false)
+    signatures_students = @signature.signatures_students.find(:all, :conditions=>['year_id=? AND enabled2=1',@year_selected.id])
     return Student.all unless signatures_students.any?
     student_ids = signatures_students.collect { |signatures_student| signatures_student.student_id }
     Student.all :conditions=>['id not in (?)', student_ids]

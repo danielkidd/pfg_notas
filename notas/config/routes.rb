@@ -7,7 +7,8 @@ ActionController::Routing::Routes.draw do |map|
       :create_student => :post,
       :destroy_student => :delete,
       :create_teacher => :post,
-      :destroy_teacher => :delete
+      :destroy_teacher => :delete,
+      :calcular_medias => :get
     } do |signature|
       signature.resources :parts do |part|
         part.resources :exams do |exam|

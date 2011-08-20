@@ -70,7 +70,9 @@
   <p>
     <%= f.label :student_id, 'Alumno' %><br />
     <%= f.collection_select :student_id, new_students, :id, :name, :prompt => 'Seleccionar alumno' %>
-    <%= f.select :int_ordinary, options_for_select(SignaturesStudent.int_ordinaries.invert, @signatures_student.int_ordinary) %>
+    <%= f.select :int_ordinary, options_for_select({
+        'Ordinaria'=>1, 'Extraordinaria Febrero'=>2, 'Extraordinaria Septiembre'=>3
+      }, @signatures_student.int_ordinary) %>
     <%= f.hidden_field :year_id, :value=>@year_selected.id %>
 
    <button class="pill button"><span class="plus icon"></span>Matricular</button>

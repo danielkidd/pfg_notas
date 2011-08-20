@@ -20,5 +20,26 @@ class Signature < ActiveRecord::Base
   def teacher_names(year_id)
     teachers.find(:all, :conditions=>['year_id=?',year_id]).to_enum.collect { |teacher| teacher.name }
   end
+
+  def calcular_medias(ordinary, conv, year_id)
+    #SignaturesStudent.transaction do
+      signatures_students.find(:all, :conditions=>{:ordinary=>ordinary, :year_id=>year_id}).each do |signatures_student|
+        average = nil
+        parts.find(:all, :conditions=>{:ordinary=>ordinary, :year_id=>year_id, :parent_id=>nil}).each do |part|
+          nota = part.calcular_nota(signatures_student, conv)
+          unless nota.nil? || nota < part.min_compensable
+            average = 0 if average.nil?
+            average += (nota * part.weighted / 100)
+          end
+        end
+        if conv==1
+          signatures_student.average1 = average
+        else
+          signatures_student.average2 = average
+        end
+        signatures_student.save
+      end
+    #end
+  end
  
 end

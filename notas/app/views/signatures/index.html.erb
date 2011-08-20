@@ -10,7 +10,7 @@
 <% @signatures.each do |signature| %>
   <tr class="<%= cycle('impar', 'par') %>">
     <td><%=h signature.name %></td>
-    <td><%=h signature.teacher_names(@year_selected.id).to_sentence %></td>
+    <td><%=truncate h(signature.teacher_names(@year_selected.id).to_sentence) %></td>
     <td class="botones">
     <% unless current_user.is_a? Administrator %>
       <% link_to signature ,:class =>"pill button" do %>
