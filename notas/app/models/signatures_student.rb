@@ -3,11 +3,13 @@ class SignaturesStudent < ActiveRecord::Base
   belongs_to :signature
   belongs_to :year
   has_many :evaluations
-  
-  validates_inclusion_of :calification1, :in=>0..10, :allow_nil=>true
-  validates_inclusion_of :average1, :in=>0..10, :allow_nil=>true
-  validates_inclusion_of :calification2, :in=>0..10, :allow_nil=>true
-  validates_inclusion_of :average2, :in=>0..10, :allow_nil=>true
+
+  validates_numericality_of :calification1, :only_integer=>true, :allow_nil=>true, :message=>'Debe ser un número entero'
+  validates_numericality_of :calification2, :only_integer=>true, :allow_nil=>true, :message=>'Debe ser un número entero'
+  validates_inclusion_of :calification1, :in=>0..10, :allow_nil=>true, :message=>'Debe ser un número de 0 a 10'
+  validates_inclusion_of :average1, :in=>0..10, :allow_nil=>true, :message=>'Debe ser un número de 0 a 10'
+  validates_inclusion_of :calification2, :in=>0..10, :allow_nil=>true, :message=>'Debe ser un número de 0 a 10'
+  validates_inclusion_of :average2, :in=>0..10, :allow_nil=>true, :message=>'Debe ser un número de 0 a 10'
   validates_presence_of :student_id
   validates_presence_of :signature_id
   validates_presence_of :year_id

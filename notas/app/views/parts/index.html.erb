@@ -31,12 +31,7 @@
         <% link_to signature_part_path(@signature, part), :class =>"left pill button" do%>
           <span class="magnifier icon"></span><span>Mostrar</span>
         <%end%>
-            <% if part.children.any? %>
-      <% link_to signature_parts_path(@signature, :ordinary=>@ordinary, :parent_id=>part), :class =>"middle pill button" do%>
-          <span class="magnifier icon"></span><span>Ver sub-bloques</span>
-        <%end%>
-      <%end%>
-      <%link_to signature_part_path(@signature, part), :confirm => '¿Estás seguro?', :method => :delete ,:class =>"right negative pill button" do%>
+        <%link_to signature_part_path(@signature, part), :confirm => '¿Estás seguro?', :method => :delete ,:class =>"right negative pill button" do%>
         <span class="trash icon"></span><span>Eliminar</span>
       <%end%>
     </td>

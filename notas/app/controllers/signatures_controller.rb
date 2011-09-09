@@ -1,6 +1,6 @@
 class SignaturesController < ApplicationController
-  before_filter :require_administrator, :except=>[:index, :show, :calcular_medias]
-  before_filter :require_teacher, :only=>[:calcular_medias]
+  before_filter :require_administrator, :except=>[:index, :show, :calcular_medias, :guardar_notas]
+  before_filter :require_teacher, :only=>[:calcular_medias, :guardar_notas]
   # GET /signatures
   # GET /signatures.xml
   def index
@@ -32,6 +32,12 @@ class SignaturesController < ApplicationController
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @signature }
+    end
+  rescue
+    respond_to do |format|
+      flash[:error] = 'Acceso no permitido'
+      format.html { redirect_to(signatures_url) }
+      format.xml  { head :ok }
     end
   end
 
@@ -186,4 +192,22 @@ class SignaturesController < ApplicationController
     end
   end
 
+  # POST /signatures/guardar_notas/1
+  # POST /signatures/guardar_notas/1.xml
+  def guardar_notas
+    @signature = Signature.find(params[:id])
+
+    respond_to do |format|
+      if @signature.update_attributes(params[:signature])
+        format.html { redirect_to(@signature, :notice => 'Las notas se han guardado correctamente.') }
+        format.js { render :js => "alert('Las notas se han guardado correctamente.');" }
+      else
+        format.html {
+          flash[:error] = "Error: #{@signature.errors.full_messages}."
+          redirect_to(@signature)
+        }
+        format.js { render :js => "alert('Error: #{@signature.errors.full_messages}.');" }
+      end
+    end
+  end
 end

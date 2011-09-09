@@ -13,11 +13,15 @@ class User < ActiveRecord::Base
   validates_presence_of     :name
   validates_length_of       :name,     :maximum => 100
 
+  validates_presence_of     :surname
+  validates_length_of       :surname,     :maximum => 100
+
   validates_presence_of     :email
   validates_length_of       :email,    :within => 6..100 #r@a.wk
   validates_uniqueness_of   :email
   validates_format_of       :email,    :with => Authentication.email_regex
 
+  default_scope :order => 'surname, name'
 
   # HACK HACK HACK -- how to do attr_accessible from here?
   # prevents a user from submitting a crafted form that bypasses activation
@@ -48,6 +52,10 @@ class User < ActiveRecord::Base
 
   def is_admin?
     false # por defecto un usuario no es administrador
+  end
+
+  def surname_name
+    "#{surname}, #{name}"
   end
   
 end

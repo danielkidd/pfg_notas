@@ -8,24 +8,21 @@
     <% end %>
   </tr>
   <tr>
-  <% if  signatures_student.calification1 && signatures_student.calification1 > 5 %>
-    <td  class="convocatoria">Convocatoria 1</td>
-    <td class="nota1 aprobado"><%=h signatures_student.calification1%></td>
-  <%  elsif signatures_student.calification1  && signatures_student.calification1 < 5%>
-    <td class="convocatoria">Convocatoria 1</td>
-    <td class="nota1 suspenso"><%=h signatures_student.calification1%></td>
-  <% end %>
-    </tr>
+    <% unless signatures_student.calification1.blank? %>
+      <td class="convocatoria">Convocatoria 1</td>
+      <td class="nota1 <%= (signatures_student.calification1 >= 5) ? 'aprobado' : 'suspenso' %>">
+        <%=h signatures_student.calification1%>
+      </td>
+    <% end %>
+  </tr>
   <tr>
-  <% if signatures_student.calification2  && signatures_student.calification2 > 5  %>
-    <td  class="convocatoria">Convocatoria 2</td>
-    <td class="nota2 aprobado"> <%=h signatures_student.calification2%></td>
-
-  <%  elsif signatures_student.calification2  && signatures_student.calification2 < 5%>
-    <td class="convocatoria">Convocatoria 2</td>
-    <td class="nota2 suspenso"><%=h signatures_student.calification2%></td>
-  <% end %>
-</tr>
+    <% unless signatures_student.calification2.blank? %>
+      <td class="convocatoria">Convocatoria 2</td>
+      <td class="nota2 <%= (signatures_student.calification2 >= 5) ? 'aprobado' : 'suspenso' %>">
+        <%=h signatures_student.calification2%>
+      </td>
+    <% end %>
+  </tr>
 </table>
 <h2>Profesores que imparten esta asignatura en el curso <%= @year_selected.to_s %>:</h2>
 <table>
@@ -46,6 +43,7 @@
 <br />
 <br />
 
+<% if @signature.parts.any? %>
 <div class="row header">
   <div class="column big">Descripción</div>
   <div class="column small">Mínimo compensable</div>
@@ -59,3 +57,4 @@
   <%= render :partial => 'parts/show_student', :locals=>{:part=>part} %>
 <% end -%>
 <div class="salto"></div>
+<% end %>

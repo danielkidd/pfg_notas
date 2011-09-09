@@ -1,0 +1,10 @@
+<% signatures_student = f.object -%>
+<tr class="<%= cycle('impar', 'par') %>">
+  <td><%=h signatures_student.student.name %></td>
+  <td><%=h signatures_student.student.expedient %></td>
+  <td><%=h signatures_student.info_ordinary %></td>
+  <td class="num"><%= signatures_student.average1 %></td>
+  <td class="num"><%= f.text_field :calification1 %></td>
+  <td class="num"><%= signatures_student.average2 %></td>
+  <td class="num"><%= f.text_field :calification2 %></td>
+</tr>

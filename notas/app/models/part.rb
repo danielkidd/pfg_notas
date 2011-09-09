@@ -32,6 +32,9 @@ class Part < ActiveRecord::Base
       unless nota.nil? || nota < part.min_compensable
         average = 0 if average.nil?
         average += (nota * part.weighted / 100)
+      else
+        average = nil
+        break
       end
     end
     average

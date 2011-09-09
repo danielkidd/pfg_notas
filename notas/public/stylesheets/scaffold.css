@@ -207,7 +207,7 @@ padding : 15px;
 .correcto{color: green; text-align: right; }
 .incorrecto{color: red; text-align: right; }
 .aprobado{background-color: greenyellow; text-align: right; }
-.suspenso{background-color: red; text-align: right; }
+.suspenso{background-color: #f44; text-align: right; }
 
 ul.migas {
     margin: 0;

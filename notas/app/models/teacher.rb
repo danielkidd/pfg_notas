@@ -16,7 +16,7 @@ class Teacher < User
   end
 
   def self.search(year_id, degree_id)
-    find :all, :select=>'DISTINCT users.*', :order=>'year_id, name',
+    find :all, :select=>'DISTINCT users.*',
       :conditions=>['(year_id=? OR year_id IS NULL) AND (degree_id=? OR degree_id IS NULL)', year_id, degree_id],
       :joins=>[
         'LEFT JOIN signatures_teachers ON teacher_id=users.id',

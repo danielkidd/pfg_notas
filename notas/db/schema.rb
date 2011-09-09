@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110726091717) do
+ActiveRecord::Schema.define(:version => 20110909121613) do
 
   create_table "degrees", :force => true do |t|
     t.string   "name"
@@ -56,9 +56,9 @@ ActiveRecord::Schema.define(:version => 20110726091717) do
     t.integer "student_id"
     t.integer "year_id"
     t.decimal "average1",      :precision => 4, :scale => 2
-    t.integer "calification1"
+    t.decimal "calification1", :precision => 4, :scale => 2
     t.decimal "average2",      :precision => 4, :scale => 2
-    t.integer "calification2"
+    t.decimal "calification2", :precision => 4, :scale => 2
     t.boolean "ordinary"
     t.boolean "enabled1",                                    :default => true
     t.boolean "enabled2",                                    :default => true
@@ -82,6 +82,7 @@ ActiveRecord::Schema.define(:version => 20110726091717) do
     t.datetime "remember_token_expires_at"
     t.string   "type",                      :limit => 40
     t.string   "expedient",                 :limit => 40
+    t.string   "surname",                   :limit => 100, :default => ""
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
